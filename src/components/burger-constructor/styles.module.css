@@ -8,7 +8,7 @@
 
 .first {
     display: flex;
-    flexDirection: column;
+    flex-direction: column;
     gap: 10px;
 }
 
@@ -16,13 +16,14 @@
     display: flex;
     gap: 10px;
     height: 440px;
+    flex-direction: column;
     overflow: auto;
     overflow-x: hidden;
 }
 
 .last {
     display: flex;
-    flexDirection: column;
+    flex-direction: column;
     gap: 10px;
 }
 
@@ -30,4 +31,15 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+}
+
+
+.item {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.item :last-child {
+    margin-bottom: 0;
 }

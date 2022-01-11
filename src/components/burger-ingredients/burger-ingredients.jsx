@@ -27,12 +27,12 @@ const BurgerIngredients = ({data}) => {
             </ul>
 
             <ul className={`${styles.list} custom-scroll`}>
-                <li className={`ml-4 mr-4`} style={{width: '100%'}}>
+                <li className={`${styles.typeTitle} ml-4 mr-4`}>
                     <h3 className={`mb-6 text text_type_main-medium`}>Булки</h3>
                 </li>
-                {data.map((item, i) => {
+                {data.filter(item => item.type === 'bun').map((item, i) => {
                     return (
-                        <li key={`${data.name}_${i}`} className={`${styles.item} ml-4 mb-10`}>
+                        <li key={`${item._id}`} className={`${styles.item} ml-4 mb-10`}>
                             <Counter count={1} size="default"/>
                             <img className={" .ml-4 .mr-4 .mb-1"} src={item.image} alt={item.name}/>
                             <span className={styles.goodPriceContainer + ' text text_type_digits-default'}>
@@ -43,9 +43,38 @@ const BurgerIngredients = ({data}) => {
                         </li>
                     )
                 })}
-                <li className={" .ml-4 .mr-4"} style={{width: '100%'}}>
+                <li className={`${styles.typeTitle} ml-4 mr-4`}>
                     <h3 className={"mb-6 text text_type_main-medium"}>Соусы</h3>
                 </li>
+                {data.filter(item => item.type === 'sauce').map((item, i) => {
+                    return (
+                        <li key={`${item._id}`} className={`${styles.item} ml-4 mb-10`}>
+                            <Counter count={1} size="default"/>
+                            <img className={" .ml-4 .mr-4 .mb-1"} src={item.image} alt={item.name}/>
+                            <span className={styles.goodPriceContainer + ' text text_type_digits-default'}>
+                                    {item.price}&nbsp;
+                                <CurrencyIcon type="primary"/>
+                            </span>
+                            <p className={styles.goodTitle + ' text text_type_main-default'}>{item.name}</p>
+                        </li>
+                    )
+                })}
+                <li className={`${styles.typeTitle} ml-4 mr-4`}>
+                    <h3 className={"mb-6 text text_type_main-medium"}>Начинки</h3>
+                </li>
+                {data.filter(item => item.type === 'main').map((item, i) => {
+                    return (
+                        <li key={`${item._id}`} className={`${styles.item} ml-4 mb-10`}>
+                            <Counter count={1} size="default"/>
+                            <img className={" .ml-4 .mr-4 .mb-1"} src={item.image} alt={item.name}/>
+                            <span className={styles.goodPriceContainer + ' text text_type_digits-default'}>
+                                    {item.price}&nbsp;
+                                <CurrencyIcon type="primary"/>
+                            </span>
+                            <p className={styles.goodTitle + ' text text_type_main-default'}>{item.name}</p>
+                        </li>
+                    )
+                })}
 
             </ul>
         </section>
