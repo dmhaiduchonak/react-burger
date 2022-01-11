@@ -5,3 +5,29 @@
     margin-top: 100px;
     background: #131316;
 }
+
+.first {
+    display: flex;
+    flexDirection: column;
+    gap: 10px;
+}
+
+.middle {
+    display: flex;
+    gap: 10px;
+    height: 440px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.last {
+    display: flex;
+    flexDirection: column;
+    gap: 10px;
+}
+
+.sum {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}

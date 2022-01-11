@@ -7,11 +7,11 @@ function AppHeader() {
     return (
         <header className={styles.main}>
             <nav className={styles.nav}>
-                <a className={styles.section + " pl-5 mt-4"}>
+                <a className={`${styles.section} pl-5 mt-4`}>
                     <BurgerIcon type="primary"/>
                     <span className="pl-2 pr-5 text text_type_main-default">Конструктор</span>
                 </a>
-                <a className={styles.section + " ml-2 pl-5 mt-4"}>
+                <a className={`${styles.section} ml-2 pl-5 mt-4`}>
                     <ListIcon type="secondary"/>
                     <span className="pl-2 pr-5 text text_type_main-default text_color_inactive">Лента заказов</span>
                 </a>
