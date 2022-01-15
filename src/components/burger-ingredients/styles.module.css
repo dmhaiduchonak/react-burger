@@ -34,6 +34,7 @@
     width: 272px;
     text-align: center;
     position: relative;
+    cursor: pointer;
 }
 
 .typeTitle {

@@ -1,27 +1,28 @@
 .logo {
-    width: 290px;
+    width: 20%;
 }
-
 
 .main {
     display: flex;
     align-items: center;
-    width: 100%;
-    justify-content: space-evenly;
+    width: 1240px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
 .nav {
     display: flex;
+    width: 40%;
     height: 100px;
 }
 
 .profile {
+    justify-content: right;
     display: flex;
+    width: 40%;
     height: 100px;
-    flex-direction: row;
-
     align-items: center;
-
+    float: right;
 }
 
 .section {

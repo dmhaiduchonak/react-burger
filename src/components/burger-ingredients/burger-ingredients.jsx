@@ -4,19 +4,24 @@ import PropTypes from 'prop-types';
 
 import {Tab, CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
+
+import IngredientShape from "../../utils/shapes";
 
 const BurgerIngredients = ({data}) => {
-    const [open, setOpen] = React.useState(false);
-    const [currentIngredient, setCurrentIngredient] = React.useState({});
+    const [currentIngredient, setCurrentIngredient] = React.useState(null);
 
     const handleIngredientClick = (id) => {
         setCurrentIngredient(data.find(x => x._id === id));
-        setOpen(true);
     }
 
     const handleModalClose = (event) => {
-        setOpen(false);
+        setCurrentIngredient(null);
     }
+
+    const bunList = data.filter(item => item.type === 'bun');
+    const sauceList = data.filter(item => item.type === 'sauce');
+    const mainList = data.filter(item => item.type === 'main');
 
     return (
         <section className={styles.main}>
@@ -43,7 +48,7 @@ const BurgerIngredients = ({data}) => {
                 <li className={`${styles.typeTitle} ml-4 mr-4`}>
                     <h3 className={`mb-6 text text_type_main-medium`}>Булки</h3>
                 </li>
-                {data.filter(item => item.type === 'bun').map((item, i) => {
+                {bunList.map((item) => {
                     return (
                         <li key={`${item._id}`} className={`${styles.item} ml-4 mb-10`} onClick={() => {
                             handleIngredientClick(item._id)
@@ -61,7 +66,7 @@ const BurgerIngredients = ({data}) => {
                 <li className={`${styles.typeTitle} ml-4 mr-4`}>
                     <h3 className={"mb-6 text text_type_main-medium"}>Соусы</h3>
                 </li>
-                {data.filter(item => item.type === 'sauce').map((item, i) => {
+                {sauceList.map((item, i) => {
                     return (
                         <li key={`${item._id}`} className={`${styles.item} ml-4 mb-10`} onClick={() => {
                             handleIngredientClick(item._id)
@@ -79,7 +84,7 @@ const BurgerIngredients = ({data}) => {
                 <li className={`${styles.typeTitle} ml-4 mr-4`}>
                     <h3 className={"mb-6 text text_type_main-medium"}>Начинки</h3>
                 </li>
-                {data.filter(item => item.type === 'main').map((item, i) => {
+                {mainList.map((item, i) => {
                     return (
                         <li key={`${item._id}`} className={`${styles.item} ml-4 mb-10`} onClick={() => {
                             handleIngredientClick(item._id)
@@ -96,27 +101,16 @@ const BurgerIngredients = ({data}) => {
                 })}
 
             </ul>
-            <IngredientDetails ingredient={currentIngredient} isOpen={open} onClose={handleModalClose}/>
+            { currentIngredient && (
+                <Modal title={'Детали ингредиента'} onClose={handleModalClose}>
+                    <IngredientDetails ingredient={currentIngredient}/>
+                </Modal>
+            )}
         </section>
     );
 }
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            '_id': PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-            type: PropTypes.string.isRequired,
-            proteins: PropTypes.number.isRequired,
-            fat: PropTypes.number.isRequired,
-            carbohydrates: PropTypes.number.isRequired,
-            calories: PropTypes.number.isRequired,
-            price: PropTypes.number.isRequired,
-            image: PropTypes.string.isRequired,
-            image_mobile: PropTypes.string.isRequired,
-            image_large: PropTypes.string.isRequired,
-            '__v': PropTypes.number.isRequired
-        })
-    ).isRequired
+    data: PropTypes.arrayOf(IngredientShape).isRequired
 };
 export default BurgerIngredients;

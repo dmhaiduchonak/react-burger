@@ -7,7 +7,7 @@ const AppHeader = () => {
     return (
         <header className={styles.main}>
             <nav className={styles.nav}>
-                <a className={`${styles.section} pl-5 mt-4`}>
+                <a className={`${styles.section} mt-4`}>
                     <BurgerIcon type="primary"/>
                     <span className="pl-2 pr-5 text text_type_main-default">Конструктор</span>
                 </a>
@@ -21,7 +21,7 @@ const AppHeader = () => {
             </div>
             <a className={styles.profile}>
                 <ProfileIcon type="secondary"/>
-                <span className="pl-2 pr-5 text text_type_main-default text_color_inactive">Личный кабинет</span>
+                <span className="pl-2 text text_type_main-default text_color_inactive">Личный кабинет</span>
             </a>
         </header>
     );

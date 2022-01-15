@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
-const Modal = ({title = '', isOpen, onClose, children}) => {
+const Modal = ({title = '', onClose, children}) => {
 
     React.useEffect(() => {
         const close = (e) => {
@@ -20,7 +20,6 @@ const Modal = ({title = '', isOpen, onClose, children}) => {
         return () => window.removeEventListener('keydown', close)
     },[onClose])
 
-    if (!isOpen) return null;
     return ReactDOM.createPortal(
         <React.Fragment>
             <ModalOverlay onClose={onClose}/>
@@ -40,7 +39,6 @@ const Modal = ({title = '', isOpen, onClose, children}) => {
 
 Modal.propTypes = {
     title: PropTypes.string,
-    isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     children: PropTypes.element.isRequired
 };

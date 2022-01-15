@@ -4,3 +4,10 @@
     align-items: flex-start;
     justify-content: center
 }
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+}
