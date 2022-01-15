@@ -3,8 +3,21 @@ import styles from './styles.module.css';
 import PropTypes from 'prop-types';
 
 import {Tab, CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const BurgerIngredients = ({data}) => {
+    const [open, setOpen] = React.useState(false);
+    const [currentIngredient, setCurrentIngredient] = React.useState({});
+
+    const handleIngredientClick = (id) => {
+        setCurrentIngredient(data.find(x => x._id === id));
+        setOpen(true);
+    }
+
+    const handleModalClose = (event) => {
+        setOpen(false);
+    }
+
     return (
         <section className={styles.main}>
             <h2 className={`mt-10 mb-5 text text_type_main-large`}>Соберите бургер</h2>
@@ -32,7 +45,9 @@ const BurgerIngredients = ({data}) => {
                 </li>
                 {data.filter(item => item.type === 'bun').map((item, i) => {
                     return (
-                        <li key={`${item._id}`} className={`${styles.item} ml-4 mb-10`}>
+                        <li key={`${item._id}`} className={`${styles.item} ml-4 mb-10`} onClick={() => {
+                            handleIngredientClick(item._id)
+                        }}>
                             <Counter count={1} size="default"/>
                             <img className={" .ml-4 .mr-4 .mb-1"} src={item.image} alt={item.name}/>
                             <span className={styles.goodPriceContainer + ' text text_type_digits-default'}>
@@ -48,7 +63,9 @@ const BurgerIngredients = ({data}) => {
                 </li>
                 {data.filter(item => item.type === 'sauce').map((item, i) => {
                     return (
-                        <li key={`${item._id}`} className={`${styles.item} ml-4 mb-10`}>
+                        <li key={`${item._id}`} className={`${styles.item} ml-4 mb-10`} onClick={() => {
+                            handleIngredientClick(item._id)
+                        }}>
                             <Counter count={1} size="default"/>
                             <img className={" .ml-4 .mr-4 .mb-1"} src={item.image} alt={item.name}/>
                             <span className={styles.goodPriceContainer + ' text text_type_digits-default'}>
@@ -64,7 +81,9 @@ const BurgerIngredients = ({data}) => {
                 </li>
                 {data.filter(item => item.type === 'main').map((item, i) => {
                     return (
-                        <li key={`${item._id}`} className={`${styles.item} ml-4 mb-10`}>
+                        <li key={`${item._id}`} className={`${styles.item} ml-4 mb-10`} onClick={() => {
+                            handleIngredientClick(item._id)
+                        }}>
                             <Counter count={1} size="default"/>
                             <img className={" .ml-4 .mr-4 .mb-1"} src={item.image} alt={item.name}/>
                             <span className={styles.goodPriceContainer + ' text text_type_digits-default'}>
@@ -77,11 +96,27 @@ const BurgerIngredients = ({data}) => {
                 })}
 
             </ul>
+            <IngredientDetails ingredient={currentIngredient} isOpen={open} onClose={handleModalClose}/>
         </section>
     );
 }
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.array
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            '_id': PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            type: PropTypes.string.isRequired,
+            proteins: PropTypes.number.isRequired,
+            fat: PropTypes.number.isRequired,
+            carbohydrates: PropTypes.number.isRequired,
+            calories: PropTypes.number.isRequired,
+            price: PropTypes.number.isRequired,
+            image: PropTypes.string.isRequired,
+            image_mobile: PropTypes.string.isRequired,
+            image_large: PropTypes.string.isRequired,
+            '__v': PropTypes.number.isRequired
+        })
+    ).isRequired
 };
 export default BurgerIngredients;
