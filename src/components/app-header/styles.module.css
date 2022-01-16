@@ -1,0 +1,41 @@
+.logo {
+    width: 20%;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    width: 1240px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.nav {
+    display: flex;
+    width: 40%;
+    height: 100px;
+}
+
+.profile {
+    justify-content: right;
+    display: flex;
+    width: 40%;
+    height: 100px;
+    align-items: center;
+    float: right;
+}
+
+.section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: 56px;
+}
+
+.icon {
+    left: 4.17%;
+    right: 4.17%;
+    top: 4.17%;
+    bottom: 63.75%;
+}
