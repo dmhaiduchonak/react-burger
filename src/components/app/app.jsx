@@ -4,8 +4,8 @@ import BurgerConstructor from '../burger-constructor/burger-constructor'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients'
 import styles from './styles.module.css';
 import Modal from "../modal/modal";
-import {BurgerContext} from "../../utils/burger-context";
-import {ErrorContext} from "../../utils/error-context";
+import {BurgerContext} from "../../services/burger-context";
+import {ErrorContext} from "../../services/error-context";
 import {API_URL} from "../../utils/constants";
 
 
@@ -42,7 +42,7 @@ const App = () => {
     }, [])
 
     return (
-        <ErrorContext.Provider value={[error, setError]}>
+        <ErrorContext.Provider value={React.useMemo(() => {return [error, setError]}, [error])}>
         <BurgerContext.Provider value={[burger]}>
             <article className={styles.flex}>
                 <AppHeader/>

@@ -10,10 +10,49 @@ import {
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 
-import {BurgerContext} from "../../utils/burger-context";
+import {BurgerContext} from "../../services/burger-context";
 import {API_URL} from "../../utils/constants";
-import {ErrorContext} from "../../utils/error-context";
+import {ErrorContext} from "../../services/error-context";
 
+const init = (initial) => {
+    return {
+        sum: 0,
+        items: [],
+        bun: null,
+    };
+}
+
+const burgerReducer = (state, action) => {
+    switch (action.type) {
+        case 'add':
+            if (action.payload.type === 'bun') {
+                return {
+                    items: state.items,
+                    bun: action.payload,
+                };
+            }
+            return {
+                items: [...state.items, action.payload],
+                bun: state.bun,
+            };
+        case 'remove':
+            if (action.payload.type === 'bun') {
+                return {
+                    items: state.items,
+                    bun: null,
+                };
+            } else {
+                return {
+                    items: state.items.filter(item => item.key !== action.payload.key),
+                    bun: state.bun,
+                };
+            }
+        case 'reset':
+            return init();
+        default:
+            throw new Error();
+    }
+}
 
 const BurgerConstructor = () => {
     const [data] = React.useContext(BurgerContext);
@@ -25,67 +64,37 @@ const BurgerConstructor = () => {
         setOpen(false);
     }
 
-    const init = (initial) => {
-        return {
-            sum: 0,
-            items: [],
-            bun: null,
-        };
-    }
-
-    const burgerReducer = (state, action) => {
-        switch (action.type) {
-            case 'add':
-                action.payload.key = nanoid();
-                if (action.payload.type === 'bun') {
-                    return {
-                        sum: state.bun ? state.sum + (action.payload.price * 2) - (state.bun * 2) : state.sum + (action.payload.price * 2),
-                        items: state.items,
-                        bun: action.payload,
-                    };
-                }
-                return {
-                    sum: state.sum + action.payload.price,
-                    items: [...state.items, action.payload],
-                    bun: state.bun,
-                };
-            case 'remove':
-                if (action.payload.type === 'bun') {
-                    return {
-                        sum: state.sum - (action.payload.price * 2),
-                        items: state.items,
-                        bun: null,
-                    };
-                } else {
-                    return {
-                        sum: state.sum - action.payload.price,
-                        items: state.items.filter(item => item.key !== action.payload.key),
-                        bun: state.bun,
-                    };
-                }
-            case 'reset':
-                return {sum: 0, bun: null, items: []};
-            default:
-                throw new Error();
-        }
-    }
 
     const [burgers, dispatchBurgerItems] = React.useReducer(burgerReducer, {
-        sum: 0,
         items: [],
         bun: null,
     }, init);
 
+    const sum = React.useMemo(() => {
+        let sum = 0;
+        if (burgers) {
+            if (burgers.bun) {
+                sum += burgers.bun.price * 2;
+            }
+            burgers.items.map((item) => {
+                return sum += item.price;
+            });
+        }
+        return sum;
+    }, [burgers]);
+
     React.useEffect(() => {
-        let bunItem = data.find(item => item.type === 'bun');
-        let itemsList = data.filter(item => item.type !== 'bun');
+        const bunItem = data.find(item => item.type === 'bun');
+        const itemsList = data.filter(item => item.type !== 'bun');
 
         if (bunItem) {
+            bunItem.key = nanoid();
             dispatchBurgerItems({type: 'add', payload: bunItem});
         }
 
         if (itemsList) {
             itemsList.map((item) => {
+                item.key = nanoid();
                 return dispatchBurgerItems({type: 'add', payload: item});
             });
         }
@@ -93,7 +102,7 @@ const BurgerConstructor = () => {
 
 
     const handleOrderSubmit = (e) => {
-        let selectedIds = burgers.items.map(item =>
+        const selectedIds = burgers.items.map(item =>
         {
             return  item._id;
         });
@@ -169,7 +178,7 @@ const BurgerConstructor = () => {
         }
 
         <div className={`${styles.sum} mt-10 mr-4`}>
-                <span className={' text text_type_digits-medium'}>{burgers.sum}&nbsp;
+                <span className={' text text_type_digits-medium'}>{sum}&nbsp;
                     <CurrencyIcon type="primary"/>
                 </span>
             <div className={'ml-10'}><Button type="primary" size="large" onClick={handleOrderSubmit}>
