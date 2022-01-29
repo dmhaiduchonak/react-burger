@@ -43,6 +43,20 @@ const BurgerIngredients = () => {
         dispatch(setCurrentIngredient(null));
     }
 
+    const handleTabCLickBun = (event) => {
+        console.log(inputRefBun.current);
+        inputRefBun.current.scrollIntoView({behavior: 'smooth'});
+        dispatch(setIngredientsCurrentTab('bun'));
+    }
+    const handleTabCLickSauce = (event) => {
+        inputRefSauce.current.scrollIntoView({behavior: 'smooth'});
+        dispatch(setIngredientsCurrentTab('sauce'));
+    }
+    const handleTabCLickMain = (event) => {
+        inputRefMain.current.scrollIntoView({behavior: 'smooth'});
+        dispatch(setIngredientsCurrentTab('main'));
+    }
+
     const bunList = items.filter(item => item.type === 'bun');
     const sauceList = items.filter(item => item.type === 'sauce');
     const mainList = items.filter(item => item.type === 'main');
@@ -52,46 +66,45 @@ const BurgerIngredients = () => {
             <h2 className={`mt-10 mb-5 text text_type_main-large`}>Соберите бургер</h2>
             <ul className={`${styles.container} mb-10`}>
                 <li>
-                    <Tab value="bun" active={currentTab === 'bun'}>
+                    <Tab value="bun" active={currentTab === 'bun'} onClick={handleTabCLickBun}>
                         Булки
                     </Tab>
                 </li>
                 <li>
-                    <Tab value="sauce" active={currentTab === 'sauce'}>
+                    <Tab value="sauce" active={currentTab === 'sauce'} onClick={handleTabCLickSauce}>
                         Соусы
                     </Tab>
                 </li>
                 <li>
-                    <Tab value="main" active={currentTab === 'main'}>
+                    <Tab value="main" active={currentTab === 'main'} onClick={handleTabCLickMain}>
                         Начинки
                     </Tab>
                 </li>
             </ul>
 
-            <ul className={`${styles.list} custom-scroll`} ref={inputRefBun}>
-                <li className={`${styles.typeTitle} ml-4 mr-4`}>
+            <ul className={`${styles.list} custom-scroll`}>
+                <li className={`${styles.typeTitle} ml-4 mr-4`} ref={inputRefBun}>
                     <h3 className={`mb-6 text text_type_main-medium`}>Булки</h3>
                 </li>
-                {bunList.map((item) => {
-                    return (
+                {bunList && bunList.length && bunList.map((item) => {
+                    return item &&
                         <Ingredient key={`${item._id}`} item={item}/>
-                    )
+
                 })}
                 <li className={`${styles.typeTitle} ml-4 mr-4`} ref={inputRefSauce}>
                     <h3 className={"mb-6 text text_type_main-medium"}>Соусы</h3>
                 </li>
-                {sauceList.map((item) => {
-                    return (
+                {sauceList && sauceList.length && sauceList.map((item) => {
+                    return item &&
                         <Ingredient key={`${item._id}`} item={item}/>
-                    )
+
                 })}
                 <li className={`${styles.typeTitle} ml-4 mr-4`} ref={inputRefMain}>
                     <h3 className={"mb-6 text text_type_main-medium"}>Начинки</h3>
                 </li>
-                {mainList.map((item) => {
-                    return (
+                {mainList && mainList.length && mainList.map((item) => {
+                    return item &&
                         <Ingredient key={`${item._id}`} item={item}/>
-                    )
                 })}
 
             </ul>

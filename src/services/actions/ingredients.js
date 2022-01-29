@@ -6,23 +6,20 @@ import {
     SET_CURRENT_INGREDIENT,
     SET_INGREDIENTS_CURRENT_TAB,
 } from '../../utils/constants';
+import {checkResponse} from "../../utils/helpers";
 
 export const setIngredientsCurrentTab = (tab) => {
-    return function (dispatch) {
-        dispatch({
-            type: SET_INGREDIENTS_CURRENT_TAB,
-            tab: tab
-        })
+    return {
+        type: SET_INGREDIENTS_CURRENT_TAB,
+        tab: tab
     }
 }
 
 
 export const setCurrentIngredient = (item) => {
-    return function (dispatch) {
-        dispatch({
-            type: SET_CURRENT_INGREDIENT,
-            item: item
-        })
+    return {
+        type: SET_CURRENT_INGREDIENT,
+        item: item
     }
 }
 
@@ -33,13 +30,7 @@ export const getIngredients = () => {
         })
         // Запрашиваем данные у сервера
         fetch(API_URL + 'ingredients')
-            .then(response => {
-
-                if (response.ok) {
-                    return response;
-                }
-                throw Error(`${response.status} ${response.statusText}`);
-            })
+            .then(checkResponse)
             .then((response) => response.json())
             .then((data) => {
                     if (data.success) {

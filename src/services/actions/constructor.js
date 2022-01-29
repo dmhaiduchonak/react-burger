@@ -47,11 +47,9 @@ export const removeConstructorItem = (item) => {
 }
 
 export const moveConstructorItem = (dragIndex, hoverIndex) => {
-    return function (dispatch) {
-        dispatch({
-            type: MOVE_CONSTRUCTOR_ITEM,
-            dragIndex,
-            hoverIndex,
-        })
+    return {
+        type: MOVE_CONSTRUCTOR_ITEM,
+        dragIndex,
+        hoverIndex,
     }
 }

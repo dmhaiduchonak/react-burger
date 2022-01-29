@@ -38,7 +38,7 @@ const Ingredient = ({item}) => {
 }
 
 Ingredient.propTypes = {
-    items: IngredientShape,
+    item: IngredientShape.isRequired,
 };
 
 export default Ingredient;

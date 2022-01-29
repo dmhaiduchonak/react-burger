@@ -72,7 +72,7 @@ const DraggableElement = ({item, index, handleClose, moveCard}) => {
 }
 
 DraggableElement.propTypes = {
-    items: IngredientShape,
+    item: IngredientShape.isRequired,
     index: PropTypes.number.isRequired,
     handleClose: PropTypes.func.isRequired,
     moveCard: PropTypes.func.isRequired,

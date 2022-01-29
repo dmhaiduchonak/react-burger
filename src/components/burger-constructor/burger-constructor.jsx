@@ -62,6 +62,10 @@ const BurgerConstructor = () => {
         dispatch(removeConstructorItem(item));
     }
 
+    const isOrderValid = useCallback( () => {
+        return bun && items && items.length>0;
+    }, [bun, items]);
+
     return (<section className={styles.main} ref={dropTarget}>
         {bun &&
             (<div className={`${styles.first} ${styles.item} mb-2 pr-4 ml-2`}>
@@ -104,7 +108,7 @@ const BurgerConstructor = () => {
                 <span className={' text text_type_digits-medium'}>{sum}&nbsp;
                     <CurrencyIcon type="primary"/>
                 </span>
-            <div className={'ml-10'}><Button type="primary" size="large" onClick={handleOrderSubmit}>
+            <div className={'ml-10'}><Button type="primary" size="large" disabled={!isOrderValid()} onClick={handleOrderSubmit}>
                 Оформить заказ
             </Button></div>
         </div>

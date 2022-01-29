@@ -1,4 +1,3 @@
-
 import {
     API_URL,
     SEND_ORDER_REQUEST,
@@ -6,6 +5,7 @@ import {
     SEND_ORDER_SUCCEESS,
     HIDE_ORDER,
 } from '../../utils/constants';
+import {checkResponse} from "../../utils/helpers";
 
 export const sendOrder = (selectedIds) => {
     return function (dispatch) {
@@ -21,13 +21,7 @@ export const sendOrder = (selectedIds) => {
             },
             body: JSON.stringify({"ingredients": selectedIds})
         })
-            .then(response => {
-
-                if (response.ok) {
-                    return response;
-                }
-                throw Error(`${response.status} ${response.statusText}`);
-            })
+            .then(checkResponse)
             .then((response) => response.json())
             .then((data) => {
                     if (data.success && data.order && data.order.number) {
@@ -50,9 +44,7 @@ export const sendOrder = (selectedIds) => {
 }
 
 export const hideOrder = () => {
-    return function (dispatch) {
-        dispatch({
-            type: HIDE_ORDER
-        })
+    return {
+        type: HIDE_ORDER
     }
 }
