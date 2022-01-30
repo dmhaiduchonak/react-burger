@@ -10,7 +10,7 @@ const Modal = ({title = '', onClose, children}) => {
 
     React.useEffect(() => {
         const close = (e) => {
-            if(e.keyCode === 27){
+            if(e.key === "Escape"){
                 if (typeof onClose === 'function') {
                     onClose()
                 }
