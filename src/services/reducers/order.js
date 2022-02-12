@@ -1,6 +1,6 @@
 import {
     SEND_ORDER_REQUEST,
-    SEND_ORDER_SUCCEESS,
+    SEND_ORDER_SUCCESS,
     SEND_ORDER_FAILED,
     HIDE_ORDER
 } from '../../utils/constants';
@@ -14,7 +14,7 @@ const initialState = {
 
 export const orderReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SEND_ORDER_SUCCEESS: {
+        case SEND_ORDER_SUCCESS: {
             return {
                 ...state,
                 id: action.id,

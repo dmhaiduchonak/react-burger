@@ -2,37 +2,37 @@ import {useDrag} from "react-dnd";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./styles.module.css";
 import React from "react";
-import {setCurrentIngredient} from "../../services/actions/ingredients";
-import {useDispatch} from 'react-redux';
 import IngredientShape from "../../utils/shapes";
 import {INGREDIENT} from "../../utils/constants";
+import {useLocation, Link} from "react-router-dom";
 
 const Ingredient = ({item}) => {
-    const dispatch = useDispatch();
+    const location = useLocation();
 
     const [, dragRef] = useDrag({
         type: INGREDIENT,
         item
     });
-
-    const handleIngredientClick = (item) => {
-        dispatch(setCurrentIngredient(item));
-    }
+    const ingredientId = item['_id'];
 
     return (
         <li
             className={`${styles.item} ml-4 mb-10`}
-            onClick={() => {
-                handleIngredientClick(item)
-            }}
             ref={dragRef}>
-            <Counter count={item.counter || 0} size="default"/>
-            <img className={" .ml-4 .mr-4 .mb-1"} src={item.image} alt={item.name}/>
-            <span className={styles.goodPriceContainer + ' text text_type_digits-default'}>
+            <Link key={ingredientId}
+                  className={`text_color_primary`}
+                  to={{
+                      pathname: `/ingredients/${ingredientId}`,
+                      state: {background: location},
+                  }}>
+                <Counter count={item.counter || 0} size="default"/>
+                <img className={" .ml-4 .mr-4 .mb-1"} src={item.image} alt={item.name}/>
+                <span className={styles.goodPriceContainer + ' text text_type_digits-default'}>
                                     {item.price}&nbsp;
-                <CurrencyIcon type="primary"/>
+                    <CurrencyIcon type="primary"/>
                             </span>
-            <p className={styles.goodTitle + ' text text_type_main-default'}>{item.name}</p>
+                <p className={styles.goodTitle + ' text text_type_main-default'}>{item.name}</p>
+            </Link>
         </li>
     )
 }

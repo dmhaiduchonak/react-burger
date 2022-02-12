@@ -4,6 +4,7 @@ import {
     GET_INGREDIENTS_FAILED,
     GET_INGREDIENTS_SUCCESS,
     SET_CURRENT_INGREDIENT,
+    RESET_CURRENT_INGREDIENT,
     SET_INGREDIENTS_CURRENT_TAB,
 } from '../../utils/constants';
 import {checkResponse} from "../../utils/helpers";
@@ -15,11 +16,16 @@ export const setIngredientsCurrentTab = (tab) => {
     }
 }
 
-
-export const setCurrentIngredient = (item) => {
+export const setCurrentIngredient = (id) => {
     return {
         type: SET_CURRENT_INGREDIENT,
-        item: item
+        id: id
+    }
+}
+
+export const resetCurrentIngredient = () => {
+    return {
+        type: RESET_CURRENT_INGREDIENT,
     }
 }
 

@@ -1,22 +1,96 @@
-import React from 'react';
-import AppHeader from '../app-header/app-header'
-import BurgerConstructor from '../burger-constructor/burger-constructor'
-import BurgerIngredients from '../burger-ingredients/burger-ingredients'
-import styles from './styles.module.css';
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import React, {useEffect} from 'react';
+import {BrowserRouter as Router, Route, Switch, useLocation, useHistory} from 'react-router-dom';
+import {IndexPage} from "../../pages";
+import {LoginPage} from "../../pages/login";
+import {LogoutPage} from "../../pages/logout";
+import {RegisterPage} from "../../pages/register";
+import {ForgotPasswordPage} from "../../pages/forgot-password";
+import {ResetPasswordPage} from "../../pages/reset-password";
+import {ProfilePage} from "../../pages/profile";
+import ProtectedRoute from "../protected-route/protected-route";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
+import AppHeader from "../app-header/app-header";
+import NotFound404 from "../not-found-404/not-found-404";
+import {useDispatch} from "react-redux";
+import {resetCurrentIngredient} from "../../services/actions/ingredients";
+import {getProfile} from "../../services/actions/profile";
 
 const App = () => {
-    return (
-            <article className={styles.flex}>
+
+    const ModalSwitch = () => {
+        const dispatch = useDispatch();
+        const location = useLocation();
+        const history = useHistory();
+        let background = location.state && location.state.background;
+
+        const handleModalClose = () => {
+            dispatch(resetCurrentIngredient);
+            history.goBack();
+        };
+        useEffect(() => {
+            dispatch(getProfile());
+        }, [dispatch]);
+
+        return (
+            <>
                 <AppHeader/>
-                <main className={styles.main}>
-                    <DndProvider backend={HTML5Backend}>
-                        <BurgerIngredients/>
-                        <BurgerConstructor/>
-                    </DndProvider>
-                </main>
-            </article>
+                <Switch location={background || location}>
+
+                    <Route path="/login">
+                        <LoginPage/>
+                    </Route>
+                    <Route path="/logout">
+                        <LogoutPage/>
+                    </Route>
+                    <Route path="/register">
+                        <RegisterPage/>
+                    </Route>
+                    <Route path="/forgot-password">
+                        <ForgotPasswordPage/>
+                    </Route>
+                    <Route path="/reset-password">
+                        <ResetPasswordPage/>
+                    </Route>
+                    <ProtectedRoute path="/profile" exact={true}>
+                        <ProfilePage/>
+                    </ProtectedRoute>
+                    <ProtectedRoute path="/profile/orders" exact={true}>
+                        <ProfilePage/>
+                    </ProtectedRoute>
+                    <ProtectedRoute path="/profile/orders/:id">
+                        <ProfilePage/>
+                    </ProtectedRoute>
+                    <Route path="/ingredients/:id" exact>
+                        <IngredientDetails/>
+                    </Route>
+                    <Route path="/" exact={true}>
+                        <IndexPage/>
+                    </Route>
+
+                    <Route>
+                        <NotFound404/>
+                    </Route>
+                </Switch>
+
+                {background && (
+                    <Route
+                        path='/ingredients/:id'
+                        children={
+                            <Modal onClose={handleModalClose}>
+                                <IngredientDetails/>
+                            </Modal>
+                        }
+                    />
+                )}
+            </>
+        );
+    };
+
+    return (
+        <Router>
+            <ModalSwitch/>
+        </Router>
     );
 }
 

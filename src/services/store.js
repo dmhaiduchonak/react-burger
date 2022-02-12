@@ -10,8 +10,9 @@ const preloadedState = {
         failed: false,
         currentTab: 'bun',
     },
-    currentIngredient: null,
-
+    currentIngredient: {
+        id: null
+    },
     constructor: {
         bun: null,
         items: [],
@@ -20,6 +21,26 @@ const preloadedState = {
         failed: false,
         request: false,
         open: false,
+    },
+    auth: {
+        name: null,
+        email: null,
+        login_failed: false,
+        login_request: false,
+        logout_failed: false,
+        logout_request: false,
+        registration_failed: false,
+        registration_request: false,
+        forgot_password_failed: false,
+        forgot_password_request: false,
+        forgot_password_completed: false,
+        reset_password_failed: false,
+        reset_password_request: false,
+        reset_password_completed: false,
+        get_profile_failed: false,
+        get_profile_request: false,
+        save_profile_failed: false,
+        save_profile_request: false,
     },
 }
 

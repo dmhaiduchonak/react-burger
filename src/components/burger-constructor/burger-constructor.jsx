@@ -9,6 +9,7 @@ import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import {useDispatch, useSelector, shallowEqual} from "react-redux";
 import { useDrop } from "react-dnd";
+import { useHistory } from 'react-router-dom';
 import {addConstructorItem, removeConstructorItem, moveConstructorItem} from "../../services/actions/constructor";
 import {sendOrder, hideOrder} from "../../services/actions/order";
 import DraggableElement from "../draggable-element/draggable-element";
@@ -16,7 +17,9 @@ import {INGREDIENT} from "../../utils/constants";
 
 const BurgerConstructor = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
+    const {email} = useSelector((state) => state.auth);
     const {items, bun} = useSelector((state) => state.constructor, shallowEqual);
     const {id, open} = useSelector((state) => state.order);
 
@@ -49,6 +52,10 @@ const BurgerConstructor = () => {
     }, [bun, items]);
 
     const handleOrderSubmit = (e) => {
+        if (!email) {
+            // redirect to login
+            history.replace({ pathname: '/login' });
+        }
         const selectedIds = items.map(item => {
             return item._id;
         });

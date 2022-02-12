@@ -1,15 +1,12 @@
 import React, {useCallback, useEffect, useRef} from 'react';
 import styles from './styles.module.css';
 import {useSelector, useDispatch} from 'react-redux';
-import {getIngredients, setCurrentIngredient, setIngredientsCurrentTab} from '../../services/actions/ingredients';
+import {getIngredients, setIngredientsCurrentTab} from '../../services/actions/ingredients';
 import Ingredient from "../ingredient/ingredient";
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import Modal from "../modal/modal";
 
 const BurgerIngredients = () => {
     const {items, currentTab} = useSelector((state) => state.ingredients);
-    const currentIngredient = useSelector((state) => state.currentIngredient);
     const dispatch = useDispatch();
 
     const inputRefBun = useRef();
@@ -39,12 +36,7 @@ const BurgerIngredients = () => {
     }, [dispatch, scrollHandler]);
 
 
-    const handleModalClose = (event) => {
-        dispatch(setCurrentIngredient(null));
-    }
-
     const handleTabCLickBun = (event) => {
-        console.log(inputRefBun.current);
         inputRefBun.current.scrollIntoView({behavior: 'smooth'});
         dispatch(setIngredientsCurrentTab('bun'));
     }
@@ -106,13 +98,7 @@ const BurgerIngredients = () => {
                     return item &&
                         <Ingredient key={`${item._id}`} item={item}/>
                 })}
-
             </ul>
-            {currentIngredient && (
-                <Modal title={'Детали ингредиента'} onClose={handleModalClose}>
-                    <IngredientDetails ingredient={currentIngredient}/>
-                </Modal>
-            )}
         </section>
     );
 }
