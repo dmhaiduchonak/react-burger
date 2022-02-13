@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.css';
 
-import {NavLink} from "react-router-dom";
+import {NavLink, Link} from "react-router-dom";
 
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -22,9 +22,9 @@ const AppHeader = () => {
                 </a>
             </nav>
             <div className={styles.logo}>
-                <a href="/">
+                <Link to="/">
                     <Logo/>
-                </a>
+                </Link>
             </div>
             <NavLink to={'/profile'}
                      className={isActive =>

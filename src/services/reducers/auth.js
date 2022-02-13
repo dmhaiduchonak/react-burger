@@ -101,7 +101,7 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
                 name: null,
                 email: null,
-                is_login_completed: false,
+                is_login_completed: true,
                 logout_failed: false,
                 logout_request: false,
             };
@@ -116,6 +116,7 @@ export const authReducer = (state = initialState, action) => {
         case SEND_LOGOUT_FAILED: {
             return {
                 ...state,
+                is_login_completed: false,
                 logout_failed: true,
                 logout_request: false,
             };

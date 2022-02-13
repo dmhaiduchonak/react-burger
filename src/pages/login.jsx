@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./styles.module.css";
 import {Input, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Redirect, useLocation} from "react-router-dom";
 import {sendLogin} from "../services/actions/login";
 import {useDispatch, useSelector} from "react-redux";
+import {getProfile} from "../services/actions/profile";
 
 export const LoginPage = () => {
     const dispatch = useDispatch();
@@ -18,6 +19,10 @@ export const LoginPage = () => {
         e.preventDefault();
         dispatch(sendLogin(formEmail, formPassword));
     }
+
+    useEffect(() => {
+        dispatch(getProfile())
+    }, [dispatch]);
 
     if (!is_login_completed) {
         return null;
