@@ -25,6 +25,7 @@ import {
 const initialState = {
     name: null,
     email: null,
+    is_login_completed: false,
     login_failed: false,
     login_request: false,
     logout_failed: false,
@@ -50,6 +51,7 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
                 name: action.name,
                 email: action.email,
+                is_login_completed: true,
                 registration_failed: false,
                 registration_request: false,
             };
@@ -74,6 +76,7 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
                 name: action.name,
                 email: action.email,
+                is_login_completed: true,
                 login_failed: false,
                 login_request: false,
             };
@@ -98,6 +101,7 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
                 name: null,
                 email: null,
+                is_login_completed: false,
                 logout_failed: false,
                 logout_request: false,
             };
@@ -173,6 +177,7 @@ export const authReducer = (state = initialState, action) => {
                 get_profile_request: false,
                 name: action.name,
                 email: action.email,
+                is_login_completed: true,
             };
         }
         case SEND_GET_PROFILE_REQUEST: {
@@ -187,6 +192,7 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
                 get_profile_failed: true,
                 get_profile_request: false,
+                is_login_completed: true,
             };
         }
 

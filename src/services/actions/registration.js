@@ -4,7 +4,6 @@ import {
     SEND_REGISTRATION_FAILED,
     SEND_REGISTRATION_SUCCESS,
 } from '../../utils/constants';
-import {checkResponse} from "../../utils/helpers";
 
 export const sendRegistration = (email, password, name) => {
     return function (dispatch) {
@@ -20,7 +19,6 @@ export const sendRegistration = (email, password, name) => {
             },
             body: JSON.stringify({email, password, name})
         })
-         //   .then(checkResponse)
             .then((response) => response.json())
             .then((data) => {
                     if (data.success && data.user && data.accessToken && data.refreshToken) {

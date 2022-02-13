@@ -22,11 +22,16 @@
 .section {
     width: 100%;
     display: flex;
-    justify-content: center
+    justify-content: center;
 }
 
 .input {
     width: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
 }
 
 .flex {

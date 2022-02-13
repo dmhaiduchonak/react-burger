@@ -22,7 +22,9 @@ const AppHeader = () => {
                 </a>
             </nav>
             <div className={styles.logo}>
-                <Logo/>
+                <a href="/">
+                    <Logo/>
+                </a>
             </div>
             <NavLink to={'/profile'}
                      className={isActive =>

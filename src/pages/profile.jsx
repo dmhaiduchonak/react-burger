@@ -3,7 +3,6 @@ import styles from "./styles.module.css";
 import {Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getProfile} from "../services/actions/profile";
 import {saveProfile} from "../services/actions/profile";
 
 export const ProfilePage = () => {
@@ -20,10 +19,9 @@ export const ProfilePage = () => {
     const {name, email} = useSelector((state) => state.auth);
 
     useEffect(() => {
-        dispatch(getProfile());
         name && setFormName(name);
         email && setFormEmail(email);
-    }, [name, email, dispatch])
+    }, [name, email])
 
     const handleCancel = () => {
         name && setFormName(name);
@@ -36,7 +34,6 @@ export const ProfilePage = () => {
         dispatch(saveProfile(formEmail, formName, formPassword));
         setFormIsEdited(false);
     }
-
 
     return (
         <article className={styles.flex}>
@@ -78,7 +75,7 @@ export const ProfilePage = () => {
                         </ul>
                     </nav>
                     <form className={styles.profileForm} onSubmit={handleSubmit}>
-                        <div className={'mt-6'}>
+                        <div className={`mt-6 ${styles.input}`}>
                             <Input
                                 ref={nameRef}
                                 name={'name'}
@@ -91,7 +88,7 @@ export const ProfilePage = () => {
                             />
                         </div>
 
-                        <div className={'mt-6'}>
+                        <div className={`mt-6 ${styles.input}`}>
                             <Input
                                 ref={emailRef}
                                 name={'email'}
@@ -106,7 +103,7 @@ export const ProfilePage = () => {
                             />
                         </div>
 
-                        <div className={'mt-6'}>
+                        <div className={`mt-6 ${styles.input}`}>
                             <Input
                                 ref={passwordRef}
                                 name={'password'}

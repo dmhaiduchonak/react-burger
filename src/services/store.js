@@ -25,6 +25,7 @@ const preloadedState = {
     auth: {
         name: null,
         email: null,
+        is_login_completed: false,
         login_failed: false,
         login_request: false,
         logout_failed: false,

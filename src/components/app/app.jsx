@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {BrowserRouter as Router, Route, Switch, useLocation, useHistory} from 'react-router-dom';
 import {IndexPage} from "../../pages";
 import {LoginPage} from "../../pages/login";
@@ -14,7 +14,6 @@ import AppHeader from "../app-header/app-header";
 import NotFound404 from "../not-found-404/not-found-404";
 import {useDispatch} from "react-redux";
 import {resetCurrentIngredient} from "../../services/actions/ingredients";
-import {getProfile} from "../../services/actions/profile";
 
 const App = () => {
 
@@ -22,17 +21,14 @@ const App = () => {
         const dispatch = useDispatch();
         const location = useLocation();
         const history = useHistory();
-        let background = location.state && location.state.background;
+        const background = location.state && location.state.background;
 
         const handleModalClose = () => {
-            dispatch(resetCurrentIngredient);
+            dispatch(resetCurrentIngredient());
             history.goBack();
         };
-        useEffect(() => {
-            dispatch(getProfile());
-        }, [dispatch]);
 
-        return (
+            return (
             <>
                 <AppHeader/>
                 <Switch location={background || location}>
@@ -77,7 +73,7 @@ const App = () => {
                     <Route
                         path='/ingredients/:id'
                         children={
-                            <Modal onClose={handleModalClose}>
+                            <Modal title={'Детали ингредиента'} onClose={handleModalClose}>
                                 <IngredientDetails/>
                             </Modal>
                         }

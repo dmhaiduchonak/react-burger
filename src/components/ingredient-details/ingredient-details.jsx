@@ -11,10 +11,11 @@ const IngredientDetails = () => {
     const {items} = useSelector((state) => state.ingredients);
 
     useEffect(() => {
-        dispatch(getIngredients())
-    }, [dispatch]);
+        if (!items || items.length<=0) dispatch(getIngredients())
+    }, [dispatch, items]);
 
     const ingredient = useMemo(() => {
+        if (!items || items.length<=0) return null;
         const currentId = (params && params.id) ? params.id : null;
         return currentId ? items.filter(item => item._id === currentId)[0] : null;
     }, [params, items]);

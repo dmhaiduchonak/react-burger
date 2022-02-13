@@ -31,7 +31,7 @@ export const ForgotPasswordPage = () => {
                 <section className={styles.section}>
                     <form onSubmit={handleSubmit}>
                         <h2 className={`text_type_main-medium bt-6`}>Восстановление пароля</h2>
-                        <div className={'mt-6'} style={{width: '100%'}}>
+                        <div className={`mt-6 ${styles.input}`}>
                             <Input
                                 name={'email'}
                                 placeholder={'Укажите e-mail'}

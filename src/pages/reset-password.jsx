@@ -41,7 +41,7 @@ export const ResetPasswordPage = () => {
                 <section className={styles.section}>
                     <form onSubmit={handleSubmit}>
                         <h2 className={`text_type_main-medium bt-6`}>Восстановление пароля</h2>
-                        <div className={'mt-6'}>
+                        <div className={`mt-6 ${styles.input}`}>
                             <PasswordInput
                                 name={'password'}
                                 placeholder={'Введите новый пароль'}
@@ -50,7 +50,7 @@ export const ResetPasswordPage = () => {
                                 onChange={e => setPassword(e.target.value)}
                             />
                         </div>
-                        <div className={'mt-6'} style={{width: '100%'}}>
+                        <div className={`mt-6 ${styles.input}`}>
                             <Input
                                 name={'code'}
                                 placeholder={'Введите код из письма'}

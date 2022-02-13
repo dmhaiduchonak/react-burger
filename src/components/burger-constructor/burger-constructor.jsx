@@ -52,9 +52,11 @@ const BurgerConstructor = () => {
     }, [bun, items]);
 
     const handleOrderSubmit = (e) => {
+        e.preventDefault();
         if (!email) {
             // redirect to login
             history.replace({ pathname: '/login' });
+            return;
         }
         const selectedIds = items.map(item => {
             return item._id;

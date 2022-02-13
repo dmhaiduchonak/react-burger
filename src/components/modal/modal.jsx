@@ -33,8 +33,8 @@ const Modal = ({title = '', onClose, children}) => {
                 </div>
                 {children}
             </div>
-        </React.Fragment>
-        , document.body);
+        </React.Fragment>,
+        document.getElementById('modals'));
 }
 
 Modal.propTypes = {

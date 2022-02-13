@@ -28,7 +28,7 @@ export const RegisterPage = () => {
                     <form onSubmit={handleSubmit}>
 
                         <h2 className={`text_type_main-medium bt-6`}>Регистрация</h2>
-                        <div className={`mt-6`}>
+                        <div className={`mt-6 ${styles.input}`}>
                             <Input
                                 type={'text'}
                                 placeholder={'Имя'}
@@ -39,7 +39,7 @@ export const RegisterPage = () => {
                                 value={formName}
                                 onChange={e => setFormName(e.target.value)}
                             /></div>
-                        <div className={'mt-6'}>
+                        <div className={`mt-6 ${styles.input}`}>
                             <Input
                                 name={'email'}
                                 placeholder={'E-mail'}
@@ -48,7 +48,7 @@ export const RegisterPage = () => {
                                 onChange={e => setFormEmail(e.target.value)}
                             />
                         </div>
-                        <div className={'mt-6'}>
+                        <div className={`mt-6 ${styles.input}`}>
                             <PasswordInput
                                 name={'password'}
                                 size={'default'}
