@@ -10,7 +10,7 @@ const Modal = ({title = '', onClose, children}) => {
 
     React.useEffect(() => {
         const close = (e) => {
-            if(e.key === "Escape"){
+            if (e.key === "Escape") {
                 if (typeof onClose === 'function') {
                     onClose()
                 }
@@ -18,7 +18,8 @@ const Modal = ({title = '', onClose, children}) => {
         }
         window.addEventListener('keydown', close)
         return () => window.removeEventListener('keydown', close)
-    },[onClose])
+    }, [onClose])
+
 
     return ReactDOM.createPortal(
         <React.Fragment>
@@ -32,10 +33,9 @@ const Modal = ({title = '', onClose, children}) => {
                 </div>
                 {children}
             </div>
-        </React.Fragment>
-        , document.body);
+        </React.Fragment>,
+        document.getElementById('modals'));
 }
-
 
 Modal.propTypes = {
     title: PropTypes.string,

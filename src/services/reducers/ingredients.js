@@ -46,8 +46,8 @@ export const ingredientsReducer = (state = initialState, action) => {
                 items: [
                     ...state.items.map(item => {
                         return item._id === action.item.id ? {
-                            ...item, counter: (item.counter && action.item.type !== 'bun') ? item.counter + 1 : 2
-                        } : {...item, counter: action.item.type === 'bun' ? 0 : item.counter}
+                            ...item, counter: (action.item.type !== 'bun') ? (item.counter ? item.counter + 1 : 1) : (action.item.type === 'bun') ? 2 : item.counter + 1
+                        } : {...item, counter: (action.item.type === 'bun' && item.type === 'bun') ? 0 : item.counter ? item.counter : 0}
                     })
                 ]
             };

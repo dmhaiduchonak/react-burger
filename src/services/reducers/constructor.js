@@ -5,6 +5,7 @@ import {
     ADD_CONSTRUCTOR_ITEM,
     REMOVE_CONSTRUCTOR_ITEM,
     MOVE_CONSTRUCTOR_ITEM,
+    RESET_CONSTRUCTOR
 } from '../../utils/constants';
 
 const initialState = {
@@ -47,6 +48,10 @@ export const constructorReducer = (state = initialState, action) => {
                 }))
             };
         }
+        case RESET_CONSTRUCTOR: {
+            return initialState;
+        }
+
         default: {
             return state
         }

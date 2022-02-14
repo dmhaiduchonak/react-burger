@@ -1,0 +1,59 @@
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 480px; /* This just a default width */
+    max-width: 480px;
+    z-index: 999;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.index {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center
+}
+
+.section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.input {
+    width: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+}
+
+.profileMenu {
+    text-align: left;
+}
+
+.profileMenu li {
+    width: 302px;
+    height: 64px;
+    align-items: center;
+    justify-content: left;
+}
+
+.profileForm {
+    width: 100%;
+    align-items: center;
+
+}
