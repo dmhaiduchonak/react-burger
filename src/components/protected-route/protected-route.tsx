@@ -1,6 +1,5 @@
 import {Route, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
-import PropTypes from "prop-types";
 import {useEffect} from "react";
 import {getProfile} from "../../services/actions/profile";
 import {RouteProps} from "react-router";
@@ -10,7 +9,7 @@ const ProtectedRoute = ({ children, ...rest }: RouteProps) => {
 
     const {email, is_login_completed} = useSelector((state: any) => state.auth);
 
-    useEffect(():void => {
+    useEffect(() => {
         dispatch(getProfile())
     }, [dispatch]);
 
@@ -34,7 +33,4 @@ const ProtectedRoute = ({ children, ...rest }: RouteProps) => {
     );
 }
 
-ProtectedRoute.propTypes = {
-    children: PropTypes.element.isRequired
-};
 export default ProtectedRoute;
