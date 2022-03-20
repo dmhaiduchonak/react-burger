@@ -20,9 +20,31 @@ import {
     SEND_SAVE_PROFILE_SUCCESS,
     SEND_SAVE_PROFILE_REQUEST,
     SEND_SAVE_PROFILE_FAILED,
-} from '../../utils/constants';
+} from '../constants/auth';
 
-const initialState = {
+export type AuthStore = {
+    name: string|null,
+    email: string|null,
+    is_login_completed: boolean,
+    login_failed: boolean,
+    login_request: boolean,
+    logout_failed: boolean,
+    logout_request: boolean,
+    registration_failed: boolean,
+    registration_request: boolean,
+    forgot_password_failed: boolean,
+    forgot_password_request: boolean,
+    forgot_password_completed: boolean,
+    reset_password_failed: boolean,
+    reset_password_request: boolean,
+    reset_password_completed: boolean,
+    get_profile_failed: boolean,
+    get_profile_request: boolean,
+    save_profile_failed: boolean,
+    save_profile_request: boolean,
+}
+
+const initialState: AuthStore = {
     name: null,
     email: null,
     is_login_completed: false,
@@ -44,7 +66,7 @@ const initialState = {
     save_profile_request: false,
 }
 
-export const authReducer = (state = initialState, action:{type: string, name: string, email: string}) => {
+export const authReducer = (state: AuthStore = initialState, action:{type: string, name: string, email: string}) => {
     switch (action.type) {
         case SEND_REGISTRATION_SUCCESS: {
             return {

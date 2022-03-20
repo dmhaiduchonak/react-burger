@@ -1,0 +1,10 @@
+.profileMenu {
+    text-align: left;
+}
+
+.profileMenu li {
+    width: 302px;
+    height: 64px;
+    align-items: center;
+    justify-content: left;
+}

@@ -15,8 +15,13 @@ import NotFound404 from "../not-found-404/not-found-404";
 import {useDispatch} from "react-redux";
 import {resetCurrentIngredient} from "../../services/actions/ingredients";
 import {LocationState} from "../../types";
-const App: React.FC = () => {
+import FeedItem from "../feed-item/feed-item";
+import {FeedPage} from "../../pages/feed";
+import {OrdersPage} from "../../pages/orders";
+import styles from './styles.module.css';
 
+
+const App: React.FC = () => {
     const ModalSwitch = () => {
         const dispatch = useDispatch();
         const location = useLocation<LocationState>();
@@ -28,7 +33,11 @@ const App: React.FC = () => {
             history.goBack();
         };
 
-            return (
+        const handleFeedModalClose = () => {
+            history.goBack();
+        };
+
+        return (
             <>
                 <AppHeader/>
                 <Switch location={background || location}>
@@ -48,16 +57,27 @@ const App: React.FC = () => {
                     <Route path="/reset-password">
                         <ResetPasswordPage/>
                     </Route>
+                    <Route path="/feed" exact={true}>
+                        <FeedPage/>
+                    </Route>
+                    <Route path="/feed/:id">
+                        <div className={styles.center}>
+                            <FeedItem/>
+                        </div>
+                    </Route>
+                    <ProtectedRoute path="/profile/orders" exact={true}>
+                        <OrdersPage/>
+                    </ProtectedRoute>
+                    <ProtectedRoute path="/profile/orders/:id" exact={true}>
+                        <div className={styles.center}>
+                            <FeedItem/>
+                        </div>
+                    </ProtectedRoute>
+
                     <ProtectedRoute path="/profile" exact={true}>
                         <ProfilePage/>
                     </ProtectedRoute>
-                    <ProtectedRoute path="/profile/orders" exact={true}>
-                        <ProfilePage/>
-                    </ProtectedRoute>
-                    <ProtectedRoute path="/profile/orders/:id">
-                        <ProfilePage/>
-                    </ProtectedRoute>
-                    <Route path="/ingredients/:id" exact>
+                    <Route path="/ingredients/:id" exact={true}>
                         <IngredientDetails/>
                     </Route>
                     <Route path="/" exact={true}>
@@ -75,6 +95,26 @@ const App: React.FC = () => {
                         children={
                             <Modal title={'Детали ингредиента'} onClose={handleModalClose}>
                                 <IngredientDetails/>
+                            </Modal>
+                        }
+                    />
+                )}
+                {background && (
+                    <Route
+                        path='/feed/:id'
+                        children={
+                            <Modal onClose={handleFeedModalClose}>
+                                <FeedItem/>
+                            </Modal>
+                        }
+                    />
+                )}
+                {background && (
+                    <ProtectedRoute
+                        path='/profile/orders/:id'
+                        children={
+                            <Modal onClose={handleFeedModalClose}>
+                                <FeedItem/>
                             </Modal>
                         }
                     />

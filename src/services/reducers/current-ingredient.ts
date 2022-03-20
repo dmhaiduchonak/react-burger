@@ -1,13 +1,17 @@
 import {
     SET_CURRENT_INGREDIENT,
     RESET_CURRENT_INGREDIENT
-} from '../../utils/constants';
+} from '../constants/ingredients';
 
-const initialState = {
+export type CurrentIngredientStore = {
+    id: string,
+}
+
+const initialState:CurrentIngredientStore = {
     id: '',
 }
 
-export const currentIngredientsReducer = (state = initialState, action: {type: string, id: string}) => {
+export const currentIngredientsReducer = (state:CurrentIngredientStore = initialState, action: {type: string, id: string}) => {
     switch (action.type) {
         case SET_CURRENT_INGREDIENT: {
             return {id: action.id};
