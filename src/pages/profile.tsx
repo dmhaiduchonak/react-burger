@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
 import styles from "./styles.module.css";
 import {Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
 import {saveProfile} from "../services/actions/profile";
 import ProfileNav from "../components/profile-nav/profile-nav";
+import {useAppDispatch, useAppSelector} from "../utils/hooks";
 
 export const ProfilePage = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const [formName, setFormName] = React.useState<string>('');
     const [formEmail, setFormEmail] = React.useState<string>('');
@@ -16,7 +16,7 @@ export const ProfilePage = () => {
     const emailRef = React.useRef<HTMLInputElement>(null);
     const passwordRef = React.useRef<HTMLInputElement>(null);
 
-    const {name, email}:{name: string, email: string} = useSelector((state:any) => state.auth);
+    const {name, email} = useAppSelector(state => state.auth);
 
     useEffect(() => {
         name && setFormName(name);

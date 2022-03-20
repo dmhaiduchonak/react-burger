@@ -3,19 +3,19 @@ import styles from "./styles.module.css";
 import React, {useEffect, useMemo} from "react";
 import {useLocation, Link} from "react-router-dom";
 import {LocationState, TItem, TOrdersRow} from "../../types";
-import {useDispatch, useSelector} from "react-redux";
 import {getIngredients} from "../../services/actions/ingredients";
 import OrderStatus from "../order-status/order-status";
+import {useAppDispatch, useAppSelector} from "../../utils/hooks";
 
 interface Props {
     feedItem: TOrdersRow;
 }
 
 const FeedBlock = ({feedItem}: Props) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation<LocationState>();
 
-    const {items}: { items: TItem[] } = useSelector((state: any) => state.ingredients);
+    const {items} = useAppSelector(state => state.ingredients);
 
     useEffect(() => {
         if (!items || items.length <= 0) dispatch(getIngredients()) //getFeed
@@ -43,7 +43,7 @@ const FeedBlock = ({feedItem}: Props) => {
             });
         }
         return sum;
-    }, [ingredientsList, items]);
+    }, [ingredientsList]);
 
     if (!feedItem)
         return (<></>);

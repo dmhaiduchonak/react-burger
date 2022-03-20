@@ -12,18 +12,18 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import AppHeader from "../app-header/app-header";
 import NotFound404 from "../not-found-404/not-found-404";
-import {useDispatch} from "react-redux";
 import {resetCurrentIngredient} from "../../services/actions/ingredients";
 import {LocationState} from "../../types";
 import FeedItem from "../feed-item/feed-item";
 import {FeedPage} from "../../pages/feed";
 import {OrdersPage} from "../../pages/orders";
 import styles from './styles.module.css';
+import {useAppDispatch} from "../../utils/hooks";
 
 
 const App: React.FC = () => {
     const ModalSwitch = () => {
-        const dispatch = useDispatch();
+        const dispatch = useAppDispatch();
         const location = useLocation<LocationState>();
         const history = useHistory();
         const background = location.state && location.state.background;

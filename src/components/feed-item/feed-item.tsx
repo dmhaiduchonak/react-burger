@@ -1,26 +1,30 @@
 import React, {useMemo, useEffect} from 'react';
 import styles from './styles.module.css';
-import {useDispatch, useSelector} from "react-redux";
 import {getIngredients,} from "../../services/actions/ingredients";
 import {useParams,} from "react-router-dom";
-import {TItem, TOrders} from "../../types";
+import {TItem} from "../../types";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {connect as connectOrdersAll} from "../../services/actions/orders-all";
+import {connect as connectOrdersAll, disconnect as disconnectOrdersAll} from "../../services/actions/orders-all";
 import {ORDERS_ALL_SERVER_URL} from "../../utils/constants";
+import {useAppDispatch, useAppSelector} from "../../utils/hooks";
 
 type FeedParams = {
     id: string;
 };
 const FeedItem = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const params = useParams<FeedParams>();
 
-    const {items}: { items: TItem[] } = useSelector((state: any) => state.ingredients);
-    const {orders}: { orders: TOrders } = useSelector((state: any) => state.ordersAll);
+    const {items} = useAppSelector(state => state.ingredients);
+    const {orders} = useAppSelector(state => state.ordersAll);
 
     useEffect(() => {
-        if (!items || items.length <= 0) dispatch(getIngredients()) //getFeed
+        if (!items || items.length <= 0) dispatch(getIngredients())
         dispatch(connectOrdersAll(`${ORDERS_ALL_SERVER_URL}`));
+
+        return () => {
+            dispatch(disconnectOrdersAll())
+        }
     }, [dispatch, items]);
 
     const item = useMemo(() => {
@@ -51,7 +55,7 @@ const FeedItem = () => {
             });
         }
         return sum;
-    }, [ingredientsList, items]);
+    }, [ingredientsList]);
 
     if (!item)
         return (<></>);

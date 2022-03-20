@@ -1,13 +1,13 @@
 import {Route, Redirect} from 'react-router-dom';
-import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {getProfile} from "../../services/actions/profile";
 import {RouteProps} from "react-router";
+import {useAppDispatch, useAppSelector} from "../../utils/hooks";
 
 const ProtectedRoute = ({ children, ...rest }: RouteProps) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const {email, is_login_completed} = useSelector((state: any) => state.auth);
+    const {email, is_login_completed} = useAppSelector(state => state.auth);
 
     useEffect(() => {
         dispatch(getProfile())

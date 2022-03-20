@@ -2,16 +2,20 @@ import React, {useEffect} from "react";
 import styles from "./styles.module.css";
 import ProfileNav from "../components/profile-nav/profile-nav";
 import OrdersList from "../components/orders-list/orders-list";
-import {useDispatch} from "react-redux";
-import {connect as connectOrders} from "../services/actions/orders";
+import {connect as connectOrders, disconnect as disconnectOrders} from "../services/actions/orders";
 import {ORDERS_SERVER_URL} from "../utils/constants";
+import {useAppDispatch} from "../utils/hooks";
 
 export const OrdersPage = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const accessToken: string = localStorage.getItem('accessToken') as string;
     useEffect(() => {
         dispatch(connectOrders(`${ORDERS_SERVER_URL}?token=${accessToken.replace('Bearer ', '')}`));
+
+        return () => {
+            dispatch(disconnectOrders())
+        }
     });
 
     return (

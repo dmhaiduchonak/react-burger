@@ -1,18 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styles from './styles.module.css';
-import {useSelector, useDispatch} from 'react-redux';
 import FeedBlock from "../feed-block/feed-block";
-import {TOrders} from "../../types";
+import {useAppSelector} from "../../utils/hooks";
 
 const OrdersList: React.FC = () => {
-    const {orders}: { orders: TOrders } = useSelector((state: any) => state.orders);
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-//        dispatch(getIngredients())
-
-    }, [dispatch]);
+    const {orders} = useAppSelector(state => state.orders);
 
     return (
 

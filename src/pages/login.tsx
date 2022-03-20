@@ -3,23 +3,22 @@ import styles from "./styles.module.css";
 import {Input, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Redirect, useLocation} from "react-router-dom";
 import {sendLogin} from "../services/actions/login";
-import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../services/actions/profile";
 import { Location } from 'history';
+import {useAppDispatch, useAppSelector} from "../utils/hooks";
 
 type LocationState = {
     from: Location;
 };
 
-
 export const LoginPage = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation<LocationState>();
 
     const [formEmail, setFormEmail] = React.useState<string>('');
     const [formPassword, setFormPassword] = React.useState<string>('');
 
-    const {email, is_login_completed}:{email: string, is_login_completed: boolean} = useSelector((state:any) => state.auth);
+    const {email, is_login_completed} = useAppSelector(state => state.auth);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

@@ -1,14 +1,13 @@
 import React, {useCallback, useEffect, useRef} from 'react';
 import styles from './styles.module.css';
-import {useSelector, useDispatch} from 'react-redux';
 import {getIngredients, setIngredientsCurrentTab} from '../../services/actions/ingredients';
 import Ingredient from "../ingredient/ingredient";
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
-import {TItem} from "../../types";
+import {useAppDispatch, useAppSelector} from "../../utils/hooks";
 
 const BurgerIngredients: React.FC = () => {
-    const {items, currentTab}: { items: TItem[]; currentTab: string }  = useSelector((state: any) => state.ingredients);
-    const dispatch = useDispatch();
+    const {items, currentTab} = useAppSelector(state => state.ingredients);
+    const dispatch = useAppDispatch();
 
     const inputRefBun = useRef<HTMLLIElement>(null);
     const inputRefSauce = useRef<HTMLLIElement>(null);

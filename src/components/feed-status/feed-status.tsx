@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './styles.module.css';
-import {useSelector} from 'react-redux';
-import {TOrders} from "../../types";
 import {STATUS_DONE, STATUS_PENDING} from "../../utils/constants";
+import {useAppSelector} from "../../utils/hooks";
 
 const FeedStatus: React.FC = () => {
 
@@ -10,10 +9,15 @@ const FeedStatus: React.FC = () => {
         orders,
         total,
         totalToday
-    }: { orders: TOrders, total: number, totalToday: number } = useSelector((state: any) => state.ordersAll);
+    } = useAppSelector(state => state.ordersAll);
 
-    const completed = orders.filter(item => {return item.status === STATUS_DONE}).slice(0, 10);
-    const pending = orders.filter(item => {return item.status === STATUS_PENDING}).slice(0, 10);
+    const completed = orders.filter(item => {
+        return item.status === STATUS_DONE
+    }).slice(0, 10);
+
+    const pending = orders.filter(item => {
+        return item.status === STATUS_PENDING
+    }).slice(0, 10);
 
     return (
         <section className={`${styles.main} ml-15`}>

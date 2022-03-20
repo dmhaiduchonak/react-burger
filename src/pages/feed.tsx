@@ -2,16 +2,19 @@ import React, {useEffect} from "react";
 import styles from "./styles.module.css";
 import FeedList from "../components/feed-list/feed-list";
 import FeedStatus from "../components/feed-status/feed-status";
-
-import {connect as connectOrdersAll} from '../services/actions/orders-all';
+import {connect as connectOrdersAll, disconnect as disconnectOrdersAll} from '../services/actions/orders-all';
 import {ORDERS_ALL_SERVER_URL} from "../utils/constants";
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "../utils/hooks";
 
 export const FeedPage = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(connectOrdersAll(`${ORDERS_ALL_SERVER_URL}`));
+
+        return () => {
+            dispatch(disconnectOrdersAll())
+        }
     });
     return (
         <article className={styles.flex}>

@@ -81,3 +81,4 @@ export type TOrdersPayload = {
     total: number,
     totalToday: number
 }
+

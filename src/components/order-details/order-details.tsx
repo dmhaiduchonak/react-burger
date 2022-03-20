@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import checkmark from '../../images/checkmark.gif'
 
 interface Props {
-  orderId?: number|null;
+  orderId?: string|number|null;
 }
 
 const OrderDetails = ({orderId = null}: Props) => {
