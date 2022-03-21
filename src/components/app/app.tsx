@@ -14,11 +14,11 @@ import AppHeader from "../app-header/app-header";
 import NotFound404 from "../not-found-404/not-found-404";
 import {resetCurrentIngredient} from "../../services/actions/ingredients";
 import {LocationState} from "../../types";
-import FeedItem from "../feed-item/feed-item";
 import {FeedPage} from "../../pages/feed";
 import {OrdersPage} from "../../pages/orders";
-import styles from './styles.module.css';
 import {useAppDispatch} from "../../utils/hooks";
+import {FeedItemPage} from "../../pages/feed-item";
+import {OrdersItemPage} from "../../pages/orders-item";
 
 
 const App: React.FC = () => {
@@ -61,17 +61,13 @@ const App: React.FC = () => {
                         <FeedPage/>
                     </Route>
                     <Route path="/feed/:id">
-                        <div className={styles.center}>
-                            <FeedItem/>
-                        </div>
+                            <FeedItemPage/>
                     </Route>
                     <ProtectedRoute path="/profile/orders" exact={true}>
                         <OrdersPage/>
                     </ProtectedRoute>
                     <ProtectedRoute path="/profile/orders/:id" exact={true}>
-                        <div className={styles.center}>
-                            <FeedItem/>
-                        </div>
+                            <OrdersItemPage/>
                     </ProtectedRoute>
 
                     <ProtectedRoute path="/profile" exact={true}>
@@ -104,7 +100,7 @@ const App: React.FC = () => {
                         path='/feed/:id'
                         children={
                             <Modal onClose={handleFeedModalClose}>
-                                <FeedItem/>
+                                <FeedItemPage/>
                             </Modal>
                         }
                     />
@@ -114,7 +110,7 @@ const App: React.FC = () => {
                         path='/profile/orders/:id'
                         children={
                             <Modal onClose={handleFeedModalClose}>
-                                <FeedItem/>
+                                <OrdersItemPage/>
                             </Modal>
                         }
                     />

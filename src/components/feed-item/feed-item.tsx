@@ -2,37 +2,22 @@ import React, {useMemo, useEffect} from 'react';
 import styles from './styles.module.css';
 import {getIngredients,} from "../../services/actions/ingredients";
 import {useParams,} from "react-router-dom";
-import {TItem} from "../../types";
+import {TItem, TOrdersRow} from "../../types";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {connect as connectOrdersAll, disconnect as disconnectOrdersAll} from "../../services/actions/orders-all";
-import {ORDERS_ALL_SERVER_URL} from "../../utils/constants";
 import {useAppDispatch, useAppSelector} from "../../utils/hooks";
 
-type FeedParams = {
-    id: string;
-};
-const FeedItem = () => {
+type Props = {
+    item: TOrdersRow
+}
+
+const FeedItem = ({item}: Props) => {
     const dispatch = useAppDispatch();
-    const params = useParams<FeedParams>();
 
     const {items} = useAppSelector(state => state.ingredients);
-    const {orders} = useAppSelector(state => state.ordersAll);
 
     useEffect(() => {
         if (!items || items.length <= 0) dispatch(getIngredients())
-        dispatch(connectOrdersAll(`${ORDERS_ALL_SERVER_URL}`));
-
-        return () => {
-            dispatch(disconnectOrdersAll())
-        }
     }, [dispatch, items]);
-
-    const item = useMemo(() => {
-        if (!orders || orders.length <= 0) return null;
-        return orders.filter(o => {
-            return o._id === params.id;
-        })[0];
-    }, [orders, params])
 
     const ingredientsList = useMemo(() => {
         if (!items || items.length <= 0) return null;
@@ -56,9 +41,6 @@ const FeedItem = () => {
         }
         return sum;
     }, [ingredientsList]);
-
-    if (!item)
-        return (<></>);
 
     return (
         <section className={`${styles.content}  mr-10 ml-10 mb-10`}>

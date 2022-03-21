@@ -55,3 +55,14 @@
     background: #131316;
     overflow: hidden;
 }
+
+.center {
+    text-align: center;
+    position: fixed;
+    width: 720px;
+    max-width: 720px;
+    z-index: 999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
