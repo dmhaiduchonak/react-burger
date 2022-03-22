@@ -27,10 +27,9 @@ export const OrdersItemPage = () => {
         return () => {
             dispatch(disconnectOrders())
         }
-    }, [dispatch]);
+    }, [dispatch, accessToken]);
 
     const item = useMemo(() => {
-
         return  orders?.filter(o => {
             return o._id === params.id;
         })[0];

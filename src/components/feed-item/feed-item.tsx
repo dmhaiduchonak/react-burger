@@ -1,7 +1,6 @@
-import React, {useMemo, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import styles from './styles.module.css';
-import {getIngredients,} from "../../services/actions/ingredients";
-import {useParams,} from "react-router-dom";
+import {getIngredients} from "../../services/actions/ingredients";
 import {TItem, TOrdersRow} from "../../types";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useAppDispatch, useAppSelector} from "../../utils/hooks";
@@ -13,19 +12,15 @@ type Props = {
 const FeedItem = ({item}: Props) => {
     const dispatch = useAppDispatch();
 
-    const {items} = useAppSelector(state => state.ingredients);
+    const {items, request, failed} = useAppSelector(state => state.ingredients);
 
     useEffect(() => {
         if (!items || items.length <= 0) dispatch(getIngredients())
-    }, [dispatch, items]);
+    }, [dispatch, items, request, failed]);
 
-    const ingredientsList = useMemo(() => {
-        if (!items || items.length <= 0) return null;
-        if (!item) return null;
-        return items.filter(ingredient => {
-            return item?.ingredients?.includes(ingredient._id)
-        });
-    }, [items, item]);
+    const ingredientsList = items?.filter(ingredient => {
+        return item?.ingredients?.includes(ingredient._id)
+    });
 
     const price = React.useMemo(() => {
         let sum = 0;
@@ -56,7 +51,7 @@ const FeedItem = ({item}: Props) => {
                             backgroundImage: `url("${ingredientItem.image}")`
                         }}>&nbsp;</div></div>
 
-                        <p className={styles.goodTitle + ' ml-4 text text_type_main-default'}>{item.name}</p>
+                        <p className={styles.goodTitle + ' ml-4 text text_type_main-default'}>{ingredientItem.name}</p>
                         <span className={styles.goodPriceContainer + ' text text_type_digits-default'}>
                                     1&nbsp;x&nbsp;{ingredientItem.price}&nbsp;
                             <CurrencyIcon type="primary"/>

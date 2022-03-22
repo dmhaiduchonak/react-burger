@@ -66,7 +66,7 @@ const App: React.FC = () => {
                     <ProtectedRoute path="/profile/orders" exact={true}>
                         <OrdersPage/>
                     </ProtectedRoute>
-                    <ProtectedRoute path="/profile/orders/:id" exact={true}>
+                    <ProtectedRoute path="/profile/orders/:id">
                             <OrdersItemPage/>
                     </ProtectedRoute>
 

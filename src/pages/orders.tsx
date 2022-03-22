@@ -16,7 +16,7 @@ export const OrdersPage = () => {
         return () => {
             dispatch(disconnectOrders())
         }
-    }, [dispatch]);
+    }, [dispatch, accessToken]);
 
     return (
         <article className={styles.flex}>

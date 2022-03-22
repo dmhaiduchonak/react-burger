@@ -1,6 +1,6 @@
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./styles.module.css";
-import React, {useEffect, useMemo} from "react";
+import React, {useEffect} from "react";
 import {useLocation, Link} from "react-router-dom";
 import {LocationState, TItem, TOrdersRow} from "../../types";
 import {getIngredients} from "../../services/actions/ingredients";
@@ -15,19 +15,15 @@ const FeedBlock = ({feedItem}: Props) => {
     const dispatch = useAppDispatch();
     const location = useLocation<LocationState>();
 
-    const {items} = useAppSelector(state => state.ingredients);
+    const {items, request, failed} = useAppSelector(state => state.ingredients);
 
     useEffect(() => {
-        if (!items || items.length <= 0) dispatch(getIngredients()) //getFeed
-    }, [dispatch, items]);
+        if (!items || items.length <= 0) dispatch(getIngredients())
+    }, [dispatch, items, request, failed]);
 
-    const ingredientsList = useMemo(() => {
-        if (!items || items.length <= 0 || !feedItem || !feedItem.ingredients) return null;
-        return items.filter(ingredient => {
-            return feedItem.ingredients.includes(ingredient._id)
+    const ingredientsList =  items.filter(ingredient => {
+            return feedItem?.ingredients?.includes(ingredient?._id)
         });
-    }, [items, feedItem]);
-
 
     const price = React.useMemo(() => {
         let sum = 0;
