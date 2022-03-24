@@ -1,11 +1,12 @@
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./styles.module.css";
-import React, {useEffect} from "react";
+import React, {useEffect, useMemo} from "react";
 import {useLocation, Link} from "react-router-dom";
 import {LocationState, TItem, TOrdersRow} from "../../types";
 import {getIngredients} from "../../services/actions/ingredients";
 import OrderStatus from "../order-status/order-status";
 import {useAppDispatch, useAppSelector} from "../../utils/hooks";
+import Datetime from "../datetime/datetime";
 
 interface Props {
     feedItem: TOrdersRow;
@@ -18,12 +19,24 @@ const FeedBlock = ({feedItem}: Props) => {
     const {items, request, failed} = useAppSelector(state => state.ingredients);
 
     useEffect(() => {
-        if (!items || items.length <= 0) dispatch(getIngredients())
+        if ((!items || items.length <= 0) && (!request)) dispatch(getIngredients())
     }, [dispatch, items, request, failed]);
 
-    const ingredientsList =  items.filter(ingredient => {
-            return feedItem?.ingredients?.includes(ingredient?._id)
+
+    const ingredientsList = useMemo( () => {
+        const a = items;
+        return a?.filter(ingredient => {
+            return feedItem?.ingredients?.includes(ingredient._id)
         });
+    }, [items, feedItem]);
+
+    const shortIngredientsList = useMemo( () => {
+       return  ingredientsList.slice(0,6);
+    }, [ingredientsList]);
+
+    const ingredientsListMoreCount = useMemo( () => {
+       return  ingredientsList.length-6;
+    }, [ingredientsList]);
 
     const price = React.useMemo(() => {
         let sum = 0;
@@ -57,21 +70,24 @@ const FeedBlock = ({feedItem}: Props) => {
                 <div className={`${styles.itemDateContainer} mt-6`}>
                     <span className={'text text_type_digits-default'}>#{feedItem.number}</span>
                     <span
-                        className={`${styles.itemDate} text text_type_main-default text_color_inactive`}>{feedItem.createdAt}</span>
+                        className={`${styles.itemDate} text text_type_main-default text_color_inactive`}><Datetime datetime={feedItem.createdAt}/></span>
                 </div>
                 <p className={`${styles.itemTitle} mt-6 text text_type_main-medium`}>{feedItem.name}</p>
                 <OrderStatus status={feedItem.status}/>
                 <div className={`${styles.itemListContainer} mt-6`}>
                     <span className={styles.circleContainer}>
-            {ingredientsList && ingredientsList.length && ingredientsList.splice(0,6).map((ingredient:TItem, index:number) => {
+            {shortIngredientsList && shortIngredientsList.length && shortIngredientsList.map((ingredient: TItem, index: number) => {
 
-                return (<div key={index} className={styles.circle} style={{zIndex: `${100-index}`}}><div className={styles.circleInner} style={{
-                    backgroundImage: `url("${ingredient.image}")`
-                }}>
-                    { (index === 5)
-                        && (<div className={`${styles.circleText} text text_type_main-default`}>+{(ingredientsList.length)}</div>
-                        )}
-                    </div></div>)
+                return (<div key={index} className={styles.circle} style={{zIndex: `${100 - index}`}}>
+                    <div className={styles.circleInner} style={{
+                        backgroundImage: `url("${ingredient.image}")`
+                    }}>
+                        {((index === 5) && (ingredientsListMoreCount>0))
+                            && (<div
+                                    className={`${styles.circleText} text text_type_main-default`}>+{ingredientsListMoreCount}</div>
+                            )}
+                    </div>
+                </div>)
             })
             }
                     </span>

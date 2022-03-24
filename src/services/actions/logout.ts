@@ -1,7 +1,7 @@
 import {
     SEND_LOGOUT_REQUEST,
     SEND_LOGOUT_FAILED,
-    SEND_LOGOUT_SUCCESS, SEND_LOGIN_REQUEST, SEND_LOGIN_SUCCESS, SEND_LOGIN_FAILED,
+    SEND_LOGOUT_SUCCESS
 } from '../constants/auth';
 import {API_URL} from '../../utils/constants';
 

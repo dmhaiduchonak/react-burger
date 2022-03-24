@@ -1,14 +1,11 @@
-import {Action, CombinedState, combineReducers} from 'redux';
-import {ingredientsReducer, IngredientsStore} from './ingredients';
-import {constructorReducer, ConstructorStore} from './constructor';
-import {orderReducer, OrderStore} from './order';
-import {currentIngredientsReducer, CurrentIngredientStore} from "./current-ingredient";
-import {authReducer, AuthStore} from "./auth";
-import {ordersReducer, OrdersStore} from "./orders";
-import {ordersAllReducer, OrdersAllStore} from "./orders-all";
-import {ThunkAction} from "redux-thunk";
-
-//export type AppThunkAction = ThunkAction<void, Action<any>, CombinedState<{ ingredients: IngredientsStore; constructor: ConstructorStore; order: OrderStore; currentIngredient: CurrentIngredientStore; auth: AuthStore; orders: OrdersStore; ordersAll: OrdersAllStore; }>, TApplicationActions>
+import {combineReducers} from 'redux';
+import {ingredientsReducer} from './ingredients';
+import {constructorReducer} from './constructor';
+import {orderReducer} from './order';
+import {currentIngredientsReducer} from "./current-ingredient";
+import {authReducer} from "./auth";
+import {ordersReducer} from "./orders";
+import {ordersAllReducer} from "./orders-all";
 
 export const rootReducer = combineReducers({
     ingredients: ingredientsReducer,

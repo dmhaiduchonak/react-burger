@@ -1,13 +1,12 @@
 import {
     SEND_TOKEN_REFRESH_REQUEST,
     SEND_TOKEN_REFRESH_FAILED,
-    SEND_TOKEN_REFRESH_SUCCESS, SEND_RESET_PASSWORD_REQUEST, SEND_RESET_PASSWORD_SUCCESS, SEND_RESET_PASSWORD_FAILED,
+    SEND_TOKEN_REFRESH_SUCCESS
 } from '../constants/auth';
 import {API_URL} from '../../utils/constants';
 
 import {checkResponse} from "../../utils/helpers";
 import {AppDispatch, AppThunk} from "../../types";
-
 
 export interface ISendTokenRefreshRequest {
     readonly type: typeof SEND_TOKEN_REFRESH_REQUEST;

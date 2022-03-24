@@ -1,9 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import styles from './styles.module.css';
 import {getIngredients} from "../../services/actions/ingredients";
 import {TItem, TOrdersRow} from "../../types";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useAppDispatch, useAppSelector} from "../../utils/hooks";
+import Datetime from "../datetime/datetime";
+import OrderStatus from "../order-status/order-status";
 
 type Props = {
     item: TOrdersRow
@@ -15,12 +17,14 @@ const FeedItem = ({item}: Props) => {
     const {items, request, failed} = useAppSelector(state => state.ingredients);
 
     useEffect(() => {
-        if (!items || items.length <= 0) dispatch(getIngredients())
+        if ((!items || items.length <= 0) && (!request)) dispatch(getIngredients())
     }, [dispatch, items, request, failed]);
 
-    const ingredientsList = items?.filter(ingredient => {
-        return item?.ingredients?.includes(ingredient._id)
-    });
+    const ingredientsList = useMemo( () => {
+        return items?.filter(ingredient => {
+            return item?.ingredients?.includes(ingredient._id)
+        });
+    }, [items, item]);
 
     const price = React.useMemo(() => {
         let sum = 0;
@@ -40,8 +44,8 @@ const FeedItem = ({item}: Props) => {
     return (
         <section className={`${styles.content}  mr-10 ml-10 mb-10`}>
             <p className={`text text_type_digits-default`}>{item.number}</p>
-            <p className={`text text_type_main-medium mt-10`}>{item.name}</p>
-            <p className={`text text_type_main-default text_color_success mt-3`}>Выполнен</p>
+            <p className={`text text_type_main-medium mt-10 mb-3`}>{item.name}</p>
+            <OrderStatus status={item.status}/>
             <h3 className={`${styles.feedTitle} text text_type_main-medium mt-15`}>Состав:</h3>
             <ul className={`${styles.properties} text text_type_main-default custom-scroll`}>
                 {ingredientsList && ingredientsList.length && ingredientsList.map((ingredientItem: TItem, index:number) => {
@@ -60,7 +64,7 @@ const FeedItem = ({item}: Props) => {
                 })}
             </ul>
             <div className={`${styles.footerContainer} mt-10`}>
-                <span className={`${styles.date} text text_type_main-default text_color_inactive`}>{item.createdAt}</span>
+                <span className={`${styles.date} text text_type_main-default text_color_inactive`}><Datetime datetime={item.createdAt}/></span>
                 <span className={`${styles.goodPriceContainer} text text_type_digits-default`}>
                                     {price}&nbsp;
                     <CurrencyIcon type="primary"/>
