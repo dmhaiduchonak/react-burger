@@ -2,14 +2,14 @@ import React from "react";
 import styles from "./styles.module.css";
 import {Input,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Redirect} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {sendForgotPassword} from "../services/actions/forgot-password";
+import {useAppDispatch, useAppSelector} from "../utils/hooks";
 
 export const ForgotPasswordPage = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [formEmail, setFormEmail] = React.useState<string>('');
 
-    const {forgot_password_completed, email}:{forgot_password_completed: boolean, email: string} = useSelector((state: any) => state.auth);
+    const {forgot_password_completed, email} = useAppSelector(state => state.auth);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

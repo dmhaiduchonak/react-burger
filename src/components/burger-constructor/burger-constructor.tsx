@@ -7,22 +7,23 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-import {useDispatch, useSelector, shallowEqual} from "react-redux";
-import { useDrop } from "react-dnd";
-import { useHistory } from 'react-router-dom';
+import {shallowEqual} from "react-redux";
+import {useDrop} from "react-dnd";
+import {useHistory} from 'react-router-dom';
 import {addConstructorItem, removeConstructorItem, moveConstructorItem} from "../../services/actions/constructor";
 import {sendOrder, hideOrder} from "../../services/actions/order";
 import DraggableElement from "../draggable-element/draggable-element";
 import {INGREDIENT} from "../../utils/constants";
 import {TItem} from "../../types";
+import {useAppDispatch, useAppSelector} from "../../utils/hooks";
 
 const BurgerConstructor: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const history = useHistory();
 
-    const {email} = useSelector((state: any) => state.auth);
-    const {items, bun}: { items: TItem[]; bun: TItem }  = useSelector((state: any) => state.constructor, shallowEqual);
-    const {id, open} = useSelector((state: any) => state.order);
+    const {email} = useAppSelector(state => state.auth);
+    const {items, bun} = useAppSelector(state => state.constructor, shallowEqual);
+    const {id, open} = useAppSelector(state => state.order);
 
     const handleModalClose = () => {
         dispatch(hideOrder());
@@ -56,13 +57,13 @@ const BurgerConstructor: React.FC = () => {
         e.preventDefault();
         if (!email) {
             // redirect to login
-            history.replace({ pathname: '/login' });
+            history.replace({pathname: '/login'});
             return;
         }
-        const selectedIds = items.map(item => {
+        const selectedIds = items?.map(item => {
             return item._id;
         });
-        if (bun._id) {
+        if (bun?._id) {
             selectedIds.push(bun._id);
         }
         dispatch(sendOrder(selectedIds));
@@ -72,8 +73,8 @@ const BurgerConstructor: React.FC = () => {
         dispatch(removeConstructorItem(item));
     }
 
-    const isOrderValid = useCallback( () => {
-        return bun && items && items.length>0;
+    const isOrderValid = useCallback(() => {
+        return bun && items && items.length > 0;
     }, [bun, items]);
 
     return (<section className={styles.main} ref={dropTarget}>
@@ -118,7 +119,8 @@ const BurgerConstructor: React.FC = () => {
                 <span className={' text text_type_digits-medium'}>{sum}&nbsp;
                     <CurrencyIcon type="primary"/>
                 </span>
-            <div className={'ml-10'}><Button type="primary" size="large" disabled={!isOrderValid()} onClick={handleOrderSubmit}>
+            <div className={'ml-10'}><Button type="primary" size="large" disabled={!isOrderValid()}
+                                             onClick={handleOrderSubmit}>
                 Оформить заказ
             </Button></div>
         </div>

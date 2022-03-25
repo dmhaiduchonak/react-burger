@@ -5,10 +5,18 @@ import {
     SET_INGREDIENTS_CURRENT_TAB,
     INCREMENT_INGREDIENT_COUNTER,
     DECREMENT_INGREDIENT_COUNTER
-} from '../../utils/constants';
+} from '../constants/ingredients';
 import {TItem} from "../../types";
 
-const initialState = {
+export type IngredientsStore = {
+    items: Array<TItem>,
+    request: boolean,
+    failed: boolean,
+    currentIngredient: TItem | null,
+    currentTab: string,
+}
+
+const initialState:IngredientsStore = {
     items: [],
     request: false,
     failed: false,
@@ -16,7 +24,7 @@ const initialState = {
     currentTab: 'bun',
 }
 
-export const ingredientsReducer = (state = initialState, action:{type:string, items:TItem[], item: TItem, tab: string}) => {
+export const ingredientsReducer = (state:IngredientsStore = initialState, action:{type:string, items:TItem[], item: TItem, tab: string}) => {
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST: {
             return {

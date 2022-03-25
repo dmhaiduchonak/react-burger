@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
 import styles from "./styles.module.css";
 import {Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import {NavLink} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {saveProfile} from "../services/actions/profile";
+import ProfileNav from "../components/profile-nav/profile-nav";
+import {useAppDispatch, useAppSelector} from "../utils/hooks";
 
 export const ProfilePage = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const [formName, setFormName] = React.useState<string>('');
     const [formEmail, setFormEmail] = React.useState<string>('');
@@ -16,7 +16,7 @@ export const ProfilePage = () => {
     const emailRef = React.useRef<HTMLInputElement>(null);
     const passwordRef = React.useRef<HTMLInputElement>(null);
 
-    const {name, email}:{name: string, email: string} = useSelector((state:any) => state.auth);
+    const {name, email} = useAppSelector(state => state.auth);
 
     useEffect(() => {
         name && setFormName(name);
@@ -39,41 +39,7 @@ export const ProfilePage = () => {
         <article className={styles.flex}>
             <main className={styles.main}>
                 <section className={styles.section}>
-                    <nav className={'mt-6'}>
-                        <ul id="menu" className={styles.profileMenu}>
-                            <li role="none">
-                                <NavLink role="menuitem"
-                                         to={'/profile'}
-                                         exact={true}
-                                         tabIndex={0}
-                                         className={isActive =>
-                                             'text text_type_main-medium ' + (!isActive ? " text_color_inactive" : "text_color_primary")}
-                                >
-                                    Профиль
-                                </NavLink>
-                            </li>
-                            <li role="none">
-                                <NavLink role="menuitem"
-                                         to={'/profile/orders'}
-                                         tabIndex={1}
-                                         className={isActive =>
-                                             'text text_type_main-medium ' + (!isActive ? " text_color_inactive" : "text_color_primary")}
-                                >
-                                    История заказов
-                                </NavLink>
-                            </li>
-                            <li role="none">
-                                <NavLink role="menuitem"
-                                         to={'/logout'}
-                                         className={isActive =>
-                                             'text text_type_main-medium ' + (!isActive ? " text_color_inactive" : "text_color_primary")}
-                                         tabIndex={2}
-                                >
-                                    Выход
-                                </NavLink>
-                            </li>
-                        </ul>
-                    </nav>
+                    <ProfileNav/>
                     <form className={styles.profileForm} onSubmit={handleSubmit}>
                         <div className={`mt-6 ${styles.input}`}>
                             <Input

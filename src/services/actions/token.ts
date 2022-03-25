@@ -1,13 +1,32 @@
 import {
-    API_URL,
     SEND_TOKEN_REFRESH_REQUEST,
     SEND_TOKEN_REFRESH_FAILED,
-    SEND_TOKEN_REFRESH_SUCCESS,
-} from '../../utils/constants';
-import {checkResponse} from "../../utils/helpers";
+    SEND_TOKEN_REFRESH_SUCCESS
+} from '../constants/auth';
+import {API_URL} from '../../utils/constants';
 
-export const makeTokenRefresh = (cb: any) => {
-    return function (dispatch: any) {
+import {checkResponse} from "../../utils/helpers";
+import {AppDispatch, AppThunk} from "../../types";
+
+export interface ISendTokenRefreshRequest {
+    readonly type: typeof SEND_TOKEN_REFRESH_REQUEST;
+}
+
+export interface ISendTokenRefreshSuccess {
+    readonly type: typeof SEND_TOKEN_REFRESH_SUCCESS;
+}
+
+export interface ISendTokenRefreshFailed {
+    readonly type: typeof SEND_TOKEN_REFRESH_FAILED;
+}
+
+export type TTokenActions =
+    | ISendTokenRefreshRequest
+    | ISendTokenRefreshSuccess
+    | ISendTokenRefreshFailed
+    ;
+
+export const makeTokenRefresh:AppThunk = (cb: any) =>  (dispatch: AppDispatch) => {
         const refreshToken: string|null = localStorage.getItem('refreshToken');
         dispatch({
             type: SEND_TOKEN_REFRESH_REQUEST
@@ -42,5 +61,4 @@ export const makeTokenRefresh = (cb: any) => {
                     type: SEND_TOKEN_REFRESH_FAILED
                 })
             })
-    }
 }

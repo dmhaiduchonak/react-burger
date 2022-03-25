@@ -16,10 +16,12 @@ const AppHeader: React.FC = () => {
                     < BurgerIcon type="primary"/>
                     <span className="pl-2 pr-5 text text_type_main-default ">Конструктор</span>
                 </NavLink>
-                <a className={`${styles.section} ml-2 pl-5 mt-4`}>
+                <NavLink to={'/feed'}
+                         className={isActive =>
+                             `${styles.section} ml-2 pl-5 mt-4 ` + (!isActive ? " text_color_inactive" : "text_color_primary")}>
                     <ListIcon type="secondary"/>
-                    <span className="pl-2 pr-5 text text_type_main-default text_color_inactive">Лента заказов</span>
-                </a>
+                    <span className="pl-2 pr-5 text text_type_main-default">Лента заказов</span>
+                </NavLink>
             </nav>
             <div className={styles.logo}>
                 <Link to="/">

@@ -1,18 +1,17 @@
 import React, {useMemo, useEffect} from 'react';
 import styles from './styles.module.css';
-import {useDispatch, useSelector} from "react-redux";
 import {getIngredients, } from "../../services/actions/ingredients";
 import {useParams, } from "react-router-dom";
-import {TItem} from "../../types";
+import {useAppDispatch, useAppSelector} from "../../utils/hooks";
 
 type IngredientParams = {
   id: string;
 };
 const IngredientDetails = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const params = useParams<IngredientParams>();
 
-    const {items}: { items: TItem[]} = useSelector((state: any) => state.ingredients);
+    const {items} = useAppSelector(state => state.ingredients);
 
     useEffect(() => {
         if (!items || items.length<=0) dispatch(getIngredients())

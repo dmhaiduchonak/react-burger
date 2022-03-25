@@ -1,0 +1,96 @@
+.content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 640px;
+    max-width: 640px;
+    text-align: left;
+}
+
+.ingredientContainer {
+    display: flex;
+    align-content: flex-start;
+    justify-content: left;
+    height: 64px;
+    vertical-align: center;
+    width: 100%;
+    max-width: 640px;
+}
+
+
+.img {
+    width: 480px;
+    height: 240px;
+}
+
+.properties {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 194px;
+    flex-flow: row wrap;
+    overflow: auto;
+    overflow-x: hidden;
+
+}
+.footerContainer {
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 28px;
+    vertical-align: center;
+
+}
+
+.feedTitle {
+    height: 30px;
+    text-align: left;
+    width: 100%;
+}
+
+.date {
+    height: 24px;
+    text-align: left;
+    width: 100%;
+}
+
+.goodTitle {
+    text-align: left;
+    text-wrap: normal;
+    vertical-align: center;
+    width: 100%;
+    overflow-wrap: break-word;
+    text-overflow: "";
+    overflow: hidden;
+    height: 52px;
+}
+
+.goodPriceContainer {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 28px;
+    vertical-align: center;
+}
+
+
+.circle {
+    background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+    border-radius: 32px;
+    width: 64px;
+    height: 64px;
+    padding: 2px;
+
+}
+.circle_inner {
+    background: #131316;
+    border-radius: 30px;
+    width: 62px;
+    height: 62px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

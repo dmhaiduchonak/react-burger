@@ -1,15 +1,9 @@
 .main {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     text-align: center;
-    width: 480px; /* This just a default width */
-    max-width: 480px;
-    z-index: 999;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    z-index: 99;
 }
 
 .index {
@@ -20,6 +14,7 @@
 }
 
 .section {
+    max-width: 1280px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -41,19 +36,33 @@
     position: relative;
 }
 
-.profileMenu {
-    text-align: left;
-}
-
-.profileMenu li {
-    width: 302px;
-    height: 64px;
-    align-items: center;
-    justify-content: left;
-}
 
 .profileForm {
     width: 100%;
     align-items: center;
 
+}
+
+.feedList {
+    width: 100%;
+    align-items: center;
+
+}
+
+.mainFeed {
+    width: 600px;
+    height: 912px;
+    background: #131316;
+    overflow: hidden;
+}
+
+.center {
+    text-align: center;
+    position: fixed;
+    width: 720px;
+    max-width: 720px;
+    z-index: 999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }

@@ -2,6 +2,27 @@ import thunk from 'redux-thunk';
 import {configureStore} from '@reduxjs/toolkit'
 import {applyMiddleware} from 'redux';
 import {rootReducer} from './reducers';
+import {socketMiddleware} from "./middleware/socket-middleware";
+
+import {
+    connect as OrdersWsConnect,
+    disconnect as OrdersWsDisconnect,
+    wsConnecting as OrdersWsConnecting,
+    wsOpen as OrdersWsOpen,
+    wsClose as OrdersWsClose,
+    wsMessage as OrdersWsMessage,
+    wsError as OrdersWsError
+} from "./actions/orders";
+
+import {
+    connect as OrdersAllWsConnect,
+    disconnect as OrdersAllWsDisconnect,
+    wsConnecting as OrdersAllWsConnecting,
+    wsOpen as OrdersAllWsOpen,
+    wsClose as OrdersAllWsClose,
+    wsMessage as OrdersAllWsMessage,
+    wsError as OrdersAllWsError
+} from "./actions/orders-all";
 
 const preloadedState = {
     ingredients: {
@@ -45,7 +66,31 @@ const preloadedState = {
     },
 }
 
-const enhancerThunk = applyMiddleware(thunk);
+
+const wsOrdersActions = {
+    wsConnect: OrdersWsConnect,
+    wsDisconnect: OrdersWsDisconnect,
+    wsConnecting: OrdersWsConnecting,
+    onOpen: OrdersWsOpen,
+    onClose: OrdersWsClose,
+    onError: OrdersWsError,
+    onMessage: OrdersWsMessage,
+};
+
+const wsOrdersAllActions = {
+    wsConnect: OrdersAllWsConnect,
+    wsDisconnect: OrdersAllWsDisconnect,
+    wsConnecting: OrdersAllWsConnecting,
+    onOpen: OrdersAllWsOpen,
+    onClose: OrdersAllWsClose,
+    onError: OrdersAllWsError,
+    onMessage: OrdersAllWsMessage,
+};
+
+
+const enhancerThunk = applyMiddleware(thunk, socketMiddleware(wsOrdersActions), socketMiddleware(wsOrdersAllActions));
+
+export type RootState = ReturnType<typeof rootReducer>
 
 export const store = configureStore({
     reducer: rootReducer,

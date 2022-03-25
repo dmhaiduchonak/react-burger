@@ -3,16 +3,23 @@ import {
     SEND_ORDER_SUCCESS,
     SEND_ORDER_FAILED,
     HIDE_ORDER
-} from '../../utils/constants';
+} from '../constants/order';
 
-const initialState = {
+export type OrderStore = {
+    id: string,
+    failed: boolean,
+    request: boolean,
+    open: boolean,
+}
+
+const initialState: OrderStore = {
     id: '',
     failed: true,
     request: false,
     open: false,
 }
 
-export const orderReducer = (state = initialState, action:{type: string, id: string}) => {
+export const orderReducer = (state: OrderStore = initialState, action: { type: string, id: string }) => {
     switch (action.type) {
         case SEND_ORDER_SUCCESS: {
             return {

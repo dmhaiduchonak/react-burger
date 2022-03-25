@@ -1,0 +1,83 @@
+.itemTitle {
+    height: 30px;
+    overflow-wrap: break-word;
+    text-overflow: "";
+    overflow: hidden;
+}
+
+.itemDate {
+    height: 24px;
+    width: 70%;
+    text-align: right;
+}
+
+.itemDateContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: center;
+}
+
+.itemListContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: center;
+}
+
+.itemPriceContainer {
+    text-align: right;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 28px;
+    vertical-align: center;
+}
+
+
+.item {
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    background: #1C1C21;
+
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 0px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 40px;
+}
+
+.circle {
+    background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+    border-radius: 32px;
+    width: 64px;
+    height: 64px;
+    padding-top: 2px;
+    padding-left: 2px;
+    margin-left: -10px;
+}
+.circleInner {
+    background: #131316;
+    border-radius: 30px;
+    width: 62px;
+    height: 62px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.circleText {
+    width: 62px;
+    height: 34px;
+    border-radius: 30px;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-align: center;
+    background-color:rgba(0,0,0,.5);
+}
+
+.circleContainer {
+    width: 100%;
+    display: flex;
+}

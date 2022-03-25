@@ -2,12 +2,12 @@ import React from "react";
 import styles from "./styles.module.css";
 import {Input, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Redirect} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {sendRegistration} from "../services/actions/registration";
+import {useAppDispatch, useAppSelector} from "../utils/hooks";
 
 export const RegisterPage = () => {
-    const dispatch = useDispatch();
-    const {email}:{email: string} = useSelector((state: any) => state.auth);
+    const dispatch = useAppDispatch();
+    const {email} = useAppSelector(state => state.auth);
 
     const [formName, setFormName] = React.useState<string>('');
     const [formEmail, setFormEmail] = React.useState<string>('');
@@ -21,6 +21,7 @@ export const RegisterPage = () => {
     if (email) {
         return (<Redirect to="/"/>)
     }
+
     return (
         <article className={styles.flex}>
             <main className={styles.main}>

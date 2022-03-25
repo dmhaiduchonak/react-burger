@@ -6,15 +6,20 @@ import {
     REMOVE_CONSTRUCTOR_ITEM,
     MOVE_CONSTRUCTOR_ITEM,
     RESET_CONSTRUCTOR
-} from '../../utils/constants';
+} from '../constants/constructor';
 import {TItem} from "../../types";
 
-const initialState = {
+export type ConstructorStore = {
+    bun: TItem | null,
+    items: Array<TItem>,
+}
+
+const initialState:ConstructorStore = {
     bun: null,
     items: [],
 }
 
-export const constructorReducer = (state = initialState, action:{type: string, item:TItem, dragIndex: number, hoverIndex: number}) => {
+export const constructorReducer = (state:ConstructorStore = initialState, action: { type: string, item: TItem, dragIndex: number, hoverIndex: number }) => {
     switch (action.type) {
         case SET_CONSTRUCTOR_BUN: {
             return {
@@ -31,7 +36,9 @@ export const constructorReducer = (state = initialState, action:{type: string, i
         case REMOVE_CONSTRUCTOR_ITEM: {
             return {
                 ...state,
-                items: [...state.items.filter((item: TItem) => {return item.key !== action.item.key})],
+                items: [...state.items.filter((item: TItem) => {
+                    return item.key !== action.item.key
+                })],
             };
         }
         case MOVE_CONSTRUCTOR_ITEM: {
