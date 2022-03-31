@@ -37,7 +37,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "cypress:open": "./node_modules/.bin/cypress open",
-    "cypress:run": "./node_modules/.bin/cypress run --browser=chrome"
+    "cypress:run": "./node_modules/.bin/cypress run --browser=chrome",
+    "deploy": "npm run build && scp -r ./build/* boom@51.250.96.103:/home/boom/stellar-frontend\n"
   },
   "eslintConfig": {
     "extends": [
