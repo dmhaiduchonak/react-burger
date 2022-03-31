@@ -14,7 +14,7 @@ export type ConstructorStore = {
     items: Array<TItem>,
 }
 
-const initialState:ConstructorStore = {
+export const initialState:ConstructorStore = {
     bun: null,
     items: [],
 }

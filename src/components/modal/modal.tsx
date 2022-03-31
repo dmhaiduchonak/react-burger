@@ -29,10 +29,10 @@ const Modal = ({title = '', onClose, children} : Props) => {
     return ReactDOM.createPortal(
         <React.Fragment>
             <ModalOverlay onClose={onClose}/>
-            <div className={styles.modal}>
+            <div className={styles.modal} data-testid={'modal'}>
                 <div className={`${styles.container} mt-10 ml-10 mr-10`}>
                     <h1 className={`${styles.title} text text_type_main-large`}>{title}</h1>
-                    <button className={styles.close} onClick={onClose}>
+                    <button className={styles.close} onClick={onClose} data-testid={'modal-close'}>
                         <CloseIcon type="primary"/>
                     </button>
                 </div>

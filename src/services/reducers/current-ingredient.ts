@@ -7,7 +7,7 @@ export type CurrentIngredientStore = {
     id: string,
 }
 
-const initialState:CurrentIngredientStore = {
+export const initialState:CurrentIngredientStore = {
     id: '',
 }
 

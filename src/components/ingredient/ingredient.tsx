@@ -22,7 +22,9 @@ const Ingredient = ({item}: Props) => {
     return (
         <li
             className={`${styles.item} ml-4 mb-10`}
-            ref={dragRef}>
+            ref={dragRef}
+            data-testid={`ingredient-item-${item._id}`}
+        >
             <Link key={ingredientId}
                   className={`text_color_primary`}
                   to={{
@@ -30,7 +32,7 @@ const Ingredient = ({item}: Props) => {
                       state: {background: location},
                   }}>
                 <Counter count={item.counter || 0} size="default"/>
-                <img className={" .ml-4 .mr-4 .mb-1"} src={item.image} alt={item.name}/>
+                <img className={`${styles.image} .ml-4 .mr-4 .mb-1`} src={item.image} alt={item.name}/>
                 <span className={styles.goodPriceContainer + ' text text_type_digits-default'}>
                                     {item.price}&nbsp;
                     <CurrencyIcon type="primary"/>

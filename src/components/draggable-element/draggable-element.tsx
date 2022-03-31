@@ -65,6 +65,7 @@ const DraggableElement = ({item, index, handleClose, moveCard}: Props) => {
             className={`${styles.item} mr-2`}
             ref={ref}
             style={{ opacity }}
+            data-testid={`constructor-item-${item._id}`}
         >
             <DragIcon type="primary"/>
             <ConstructorElement

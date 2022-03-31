@@ -12,7 +12,7 @@ export type OrderStore = {
     open: boolean,
 }
 
-const initialState: OrderStore = {
+export const initialState: OrderStore = {
     id: '',
     failed: true,
     request: false,
