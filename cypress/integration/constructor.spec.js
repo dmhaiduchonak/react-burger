@@ -31,6 +31,7 @@ describe('Constructor', () => {
     cy.url().should('include', '/');
     cy.get('[data-testid="ingredient-item-60d3b41abdacab0026a733cd"]').click();
     cy.get('[data-testid="modal"').should('be.visible');
+
     cy.url().should('include', 'ingredients/60d3b41abdacab0026a733cd');
     cy.get('[data-testid="ingredient-info-image"').should('have.attr', 'src', 'https://code.s3.yandex.net/react/code/sauce-04-large.png');
     cy.get('[data-testid="ingredient-info-name"').should('contain.text', 'Соус фирменный Space Sauce');
@@ -40,6 +41,7 @@ describe('Constructor', () => {
     cy.get('[data-testid="ingredient-info-carbohydrates"').should('contain.text', '11');
 
     cy.get('[data-testid="modal-close"]').click();
+    cy.get('#modals').should('not.have.descendants', 'div');
     cy.url().should('include', '/');
   })
 
@@ -63,9 +65,12 @@ describe('Constructor', () => {
     cy.get('[data-testid="order-sum"]').should('contain.text', '2590');
     cy.get('[data-testid="order-submit"] > button').should('be.enabled').should('contain.text', 'Оформить заказ');
     cy.get('[data-testid="order-submit"] > button').click('center');
+    cy.get('[data-testid="modal"').should('be.visible');
+
     cy.get('[data-testid="order-detail-number"').should('contain.text', '12559');
 
     cy.get('[data-testid="modal-close"]').click();
+    cy.get('#modals').should('not.have.descendants', 'div');
     cy.url().should('include', '/');
   })
 })

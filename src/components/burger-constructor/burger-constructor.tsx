@@ -16,7 +16,6 @@ import DraggableElement from "../draggable-element/draggable-element";
 import {INGREDIENT} from "../../utils/constants";
 import {TItem} from "../../types";
 import {useAppDispatch, useAppSelector} from "../../utils/hooks";
-import {getProfile} from "../../services/actions/profile";
 
 const BurgerConstructor: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -25,11 +24,6 @@ const BurgerConstructor: React.FC = () => {
     const {email} = useAppSelector(state => state.auth);
     const {items, bun} = useAppSelector(state => state.constructor, shallowEqual);
     const {id, open} = useAppSelector(state => state.order);
-
-    useEffect(() => {
-        dispatch(getProfile())
-
-    }, [dispatch]);
 
     const handleModalClose = () => {
         dispatch(hideOrder());

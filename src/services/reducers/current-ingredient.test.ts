@@ -11,7 +11,7 @@ describe('CurrentIngredients reducer', () => {
         )
     })
 
-    it('should handle SET_CONSTRUCTOR_BUN', () => {
+    it('should handle SET_CURRENT_INGREDIENT', () => {
         expect(
             currentIngredientsReducer(initialState, {
                 type: SET_CURRENT_INGREDIENT,
@@ -23,7 +23,7 @@ describe('CurrentIngredients reducer', () => {
             }
         )
     })
-    it('should handle RESET_CONSTRUCTOR', () => {
+    it('should handle RESET_CURRENT_INGREDIENT', () => {
         expect(
             currentIngredientsReducer({
                 id: 'aaa'
