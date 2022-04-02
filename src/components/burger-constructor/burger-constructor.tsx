@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useCallback} from 'react';
+import React, {SyntheticEvent, useCallback, useEffect} from 'react';
 import styles from './styles.module.css';
 import {
     CurrencyIcon,
@@ -55,7 +55,7 @@ const BurgerConstructor: React.FC = () => {
 
     const handleOrderSubmit = (e: SyntheticEvent<Element, Event>) => {
         e.preventDefault();
-        if (!email) {
+        if (!email && !localStorage.getItem('accessToken')) {
             // redirect to login
             history.replace({pathname: '/login'});
             return;
@@ -77,7 +77,7 @@ const BurgerConstructor: React.FC = () => {
         return bun && items && items.length > 0;
     }, [bun, items]);
 
-    return (<section className={styles.main} ref={dropTarget}>
+    return (<section className={styles.main} ref={dropTarget} data-testid={'constructor'}>
         {bun &&
             (<div className={`${styles.first} ${styles.item} mb-2 pr-4 ml-2`}>
                 <ConstructorElement
@@ -116,10 +116,11 @@ const BurgerConstructor: React.FC = () => {
         }
 
         <div className={`${styles.sum} mt-10 mr-4`}>
-                <span className={' text text_type_digits-medium'}>{sum}&nbsp;
+                <span data-testid="order-sum" className={' text text_type_digits-medium'}>{sum}&nbsp;
                     <CurrencyIcon type="primary"/>
                 </span>
-            <div className={'ml-10'}><Button type="primary" size="large" disabled={!isOrderValid()}
+            <div data-testid="order-submit" className={'ml-10'}>
+                <Button type="primary" size="large" disabled={!isOrderValid()}
                                              onClick={handleOrderSubmit}>
                 Оформить заказ
             </Button></div>

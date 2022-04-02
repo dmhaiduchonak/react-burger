@@ -16,7 +16,7 @@ export type IngredientsStore = {
     currentTab: string,
 }
 
-const initialState:IngredientsStore = {
+export const initialState:IngredientsStore = {
     items: [],
     request: false,
     failed: false,

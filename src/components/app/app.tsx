@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter as Router, Route, Switch, useLocation, useHistory} from 'react-router-dom';
 import {IndexPage} from "../../pages";
 import {LoginPage} from "../../pages/login";
@@ -19,9 +19,11 @@ import {OrdersPage} from "../../pages/orders";
 import {useAppDispatch} from "../../utils/hooks";
 import {FeedItemPage} from "../../pages/feed-item";
 import {OrdersItemPage} from "../../pages/orders-item";
-
+import {getProfile} from "../../services/actions/profile";
 
 const App: React.FC = () => {
+    const dispatch = useAppDispatch();
+
     const ModalSwitch = () => {
         const dispatch = useAppDispatch();
         const location = useLocation<LocationState>();
@@ -118,6 +120,11 @@ const App: React.FC = () => {
             </>
         );
     };
+
+    useEffect(() => {
+        dispatch(getProfile())
+
+    }, [dispatch]);
 
     return (
         <Router>

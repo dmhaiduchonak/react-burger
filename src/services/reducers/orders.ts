@@ -10,7 +10,7 @@ export type OrdersStore = {
     totalToday: number
 }
 
-const initialState: OrdersStore = {
+export const initialState: OrdersStore = {
     status: WebsocketStatus.OFFLINE,
     connectionError: '',
     orders: [],
@@ -38,4 +38,7 @@ export const ordersReducer = createReducer(initialState, (builder) => {
             state.total = action.payload.total;
             state.totalToday = action.payload.totalToday;
         })
+        .addDefaultCase((state, action) => {
+            state = initialState;
+        });
 })

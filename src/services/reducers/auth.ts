@@ -22,7 +22,7 @@ import {
     SEND_SAVE_PROFILE_FAILED,
 } from '../constants/auth';
 
-export type AuthStore = {
+type AuthStore = {
     name: string|null,
     email: string|null,
     is_login_completed: boolean,
@@ -44,7 +44,7 @@ export type AuthStore = {
     save_profile_request: boolean,
 }
 
-const initialState: AuthStore = {
+export const initialState: AuthStore = {
     name: null,
     email: null,
     is_login_completed: false,
